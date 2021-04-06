@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background-color: #161b22;
+}
+
+#chart-container{
+  text-align: -webkit-center;
+}
