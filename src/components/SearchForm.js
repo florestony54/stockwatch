@@ -17,19 +17,18 @@ class SearchForm extends React.Component{
     }
 
     handleSubmit(event){
-        var url = new URL("http://localhost:5000/"),
-            params = {ticker: this.state.input};
+        var url = new URL("http://localhost:5000/"), // Update url when app gets deployed
+            params = {'ticker': this.state.input};
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
         console.log('Searching Ticker Symbol: ' + this.state.input)
 
-        fetch(url).then(response => {
-            // console.log(response.json())
-            response.json();
-        }).then(data => this.setState({data: data}))
+        fetch(url).then(response => 
+                // console.log(response.json())
+            response.json()
+        ).then(dat => this.setState({chart: <Chart ticker={this.state.input}
+            data={dat} />}))
 
-        console.log(this.state.data)
-        this.setState({chart: <Chart ticker={this.state.input} />})
         event.preventDefault();
     }
 
