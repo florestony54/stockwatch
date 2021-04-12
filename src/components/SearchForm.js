@@ -24,10 +24,12 @@ class SearchForm extends React.Component{
         console.log('Searching Ticker Symbol: ' + this.state.input)
 
         fetch(url).then(response => 
-                // console.log(response.json())
             response.json()
         ).then(dat => this.setState({chart: <Chart ticker={this.state.input}
-            data={dat} />}))
+            data={dat} />})).catch((err) => {
+                console.log(err);
+                alert("Invalid. Please use a valid ticker symbol.")
+            })
 
         event.preventDefault();
     }
