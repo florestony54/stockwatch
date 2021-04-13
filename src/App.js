@@ -5,9 +5,7 @@ import SearchForm from './components/SearchForm';
 function App() {
   return (
     <div className="App">
-      <div class="container">
         <SearchForm />
-      </div>
     </div>
   );
 }

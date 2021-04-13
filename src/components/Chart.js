@@ -8,32 +8,71 @@ class Chart extends React.Component{
         this.state = {
             ticker: "",
             chart: null, 
-            data: null//rawData
+            data: null,
+            chartContainer:  document.getElementById('chart-container')
+            //rawData
         }
         this._ref = React.createRef();
         this.data = rawData;
+
     }
 
     drawChart(tick){
         this.setState({ticker: tick})
-        const chart = createChart(document.querySelector(".tradingview-widget-container"), { width: 800, height: 600 });
+        const chart = createChart(document.querySelector(".tradingview-widget-container"), 
+        { width: this.state.chartContainer.offsetWidth,
+            height: 410});
         const candleSeries = chart.addCandlestickSeries();
         chart.applyOptions({
             layout: {
-                backgroundColor: '#161b22',
-                textColor: '#c9d1d9',
+                backgroundColor: '#041b4dd6',
+                textColor: 'white',
                 fontSize: 12,
             },
-            watermark: {
-                text: this.state.ticker.toUpperCase(),
-                color: 'white',
-                visible: true
+            grid: {
+                vertLines: {
+                    color: 'gray',
+                    style: 1,
+                    visible: true,
+                },
+                horzLines: {
+                    color: 'gray',
+                    style: 1,
+                    visible: true,
+                },
             }
         })
             candleSeries.setData( 
                 this.state.data
             )
-    }
+            //Line series to add indicators to chart
+            // const lineSeries = chart.addLineSeries();
+
+            // // set data
+            // lineSeries.setData([
+            //     { time: '2020-12-01', value: 32.51 },
+            //     { time: '2020-12-02', value: 31.11 },
+            //     { time: '2020-12-03', value: 27.02 },
+            //     { time: '2020-12-04', value: 27.32 },
+            //     { time: '2020-12-05', value: 25.17 },
+            //     { time: '2020-12-06', value: 28.89 },
+            //     { time: '2020-12-07', value: 25.46 },
+            //     { time: '2020-12-08', value: 23.92 },
+            //     { time: '2020-12-09', value: 22.68 },
+            //     { time: '2020-12-10', value: 22.67 },
+            //     { time: '2020-12-11', value: 27.57 },
+            //     { time: '2020-12-12', value: 24.11 },
+            //     { time: '2020-12-13', value: 30.74 },
+            // ]);
+            var timerID;
+            document.body.onresize = function() {
+                this.setState({chartContainer: document.getElementById('chart-container')})
+                if (timerID) clearTimeout(timerID);
+                timerID = setTimeout(function() {
+                    chart.resize( this.state.chartContainer.offsetWidth, 410);
+                }.bind(this), 200);
+            }.bind(this)
+}
 
     componentDidMount(){
         console.log("Props data: " + this.props.data)

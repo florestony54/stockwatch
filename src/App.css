@@ -1,3 +1,11 @@
+element{
+  --background-blue: #1a1935;
+}
+
+i{
+  margin-right: 1rem;
+  font-size: larger;
+}
 .App {
   text-align: center;
 }
@@ -38,9 +46,59 @@
 }
 
 body {
-  background-color: #161b22;
+  background-image: url("./media/bg.jpg");
+  background-size: 100vw 100vh;
+  /* background-repeat: no-repeat; */
+  color: white;
+}
+
+.card{
+  background-color: #041b4dd6 !important;
+  padding-right: 0;
+
+}
+
+.card-header{
+  background-color: #1d1b3b !important;
+}
+
+#dash-row{
+  padding-left: 8rem;
+}
+
+.data-card{
+  padding: 0.5rem;
+}
+
+.list-group-item{
+  background-color: #041b4dd6 !important;
+  padding-top: 1rem;
+  /* border: lightgray 1px solid !important; */
 }
 
 #chart-container{
-  text-align: -webkit-center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  /* text-align: -webkit-center; */
+}
+
+.pop-price{
+  color: rgb(47, 255, 47);
+  /* margin-left: 2rem; */
+}
+
+#pop-stocks{
+  text-align: left;
+  background-color: rgba(240, 248, 255, 0) !important;
+  /* max-height: 15rem; */
+  border: 0;
+}
+
+.btn-primary{
+  background-color:#041b4dd6 !important;
+  border: 0px !important;
+}
+
+#ticker-form{
+  margin-bottom: 3rem;
 }

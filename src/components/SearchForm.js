@@ -1,5 +1,9 @@
 import React from 'react';
 import Chart from './Chart';
+import PopPanel from './PopPanel';
+import DataPanel from './DataPanel';
+import InfoPanel from './InfoPanel';
+
 
 class SearchForm extends React.Component{
     constructor(props){
@@ -40,9 +44,9 @@ class SearchForm extends React.Component{
 
     render(){
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <div className="mb-3">
+            <div >
+                <form id='ticker-form' onSubmit={this.handleSubmit}>
+                    <div className="container mb-3 col-2">
                         <label for="exampleInputEmail1" className="form-label">Ticker Symbol</label>
                         <input input={this.state.input} 
                                 type="text" className="form-control" 
@@ -53,8 +57,13 @@ class SearchForm extends React.Component{
                     </div>
                     <button  type="submit" className="btn btn-primary">Submit</button>
                 </form>
-                <div id='chart-container' className="container">
-                    {this.state.chart}
+                <div id='dash-row' className='row'>
+                    <PopPanel />
+                    <div id='chart-container' className="col-6 d-flex justify-content-center">
+                        {this.state.chart}
+                    </div>
+                    <DataPanel />
+                    {/* <InfoPanel /> */}
                 </div>
                 
             </div>
