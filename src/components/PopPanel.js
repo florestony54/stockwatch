@@ -5,12 +5,39 @@ class PopPanel extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-           
+           goog: "...",
+           aapl: "...",
+           amzn: "...",
+           msft: "...",
+           fb: "..."
+        }
+        this.getPrices = () => {
+            var url = new URL("http://localhost:5000/pop");
+            fetch(url).then(response =>
+                response.json()
+            ).then(dat =>
+                this.setState({
+                    aapl: "$" + dat.aapl,
+                    goog: "$" + dat.goog,
+                    amzn: "$" + dat.amzn,
+                    msft: "$" + dat.msft,
+                    fb: "$" + dat.fb,
+                })
+            ).catch((err) => {
+                console.log(err);
+                alert("Error with scraping fxn.")
+            })
+            // Call the function every 5 sec to update prices
+            // setTimeout(this.getPrices, 5000);
         }
     }
 
-    componentDidUpdate(){
-        
+    
+
+    componentDidMount(){
+        this.getPrices()
+
+        // event.preventDefault();
     }
 
     render(){
@@ -23,31 +50,31 @@ class PopPanel extends React.Component{
                     <li class="list-group-item">
                         <div className='row align-items-center'>
                             <i class="fab fa-google col-1"></i>
-                            <div className='col-8'>GOOG <div className='pop-price'>$2254.79</div></div>
+                            <div className='col-8'>GOOG <div className='pop-price'>{this.state.goog}</div></div>
                         </div>
                     </li>
                     <li class="list-group-item">
                         <div className='row align-items-center'>
                             <i class="fab fa-apple col-1"></i>
-                            <div className='col-8'>AAPL <div className='pop-price'>$131.03</div></div>
+                            <div className='col-8'>AAPL <div className='pop-price'>{this.state.aapl}</div></div>
                         </div>
                         
                     </li><li class="list-group-item">
                         <div className='row align-items-center'>
                             <i class="fab fa-amazon col-1"></i>
-                            <div className='col-8'>AMZN <div className='pop-price'>$3390.00</div></div>
+                            <div className='col-8'>AMZN <div className='pop-price'>{this.state.amzn}</div></div>
                         </div>
                         
                     </li><li class="list-group-item">
                         <div className='row align-items-center'>
                             <i class="fab fa-microsoft col-1"></i>
-                            <div className='col-8'>MSFT <div className='pop-price'>$255.95</div></div>
+                            <div className='col-8'>MSFT <div className='pop-price'>{this.state.msft}</div></div>
                         </div>
                         
                     </li><li class="list-group-item">
                         <div className='row align-items-center'>
                             <i class="fab fa-facebook col-1"></i>
-                            <div className='col-8'>FB <div className='pop-price'>$311.41</div></div>
+                            <div className='col-8'>FB <div className='pop-price'>{this.state.fb}</div></div>
                         </div>
                         
                     </li>
