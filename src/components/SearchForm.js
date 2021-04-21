@@ -21,7 +21,7 @@ class SearchForm extends React.Component{
     }
 
     handleSubmit(event){
-        var url = new URL("http://localhost:5000/"), // Update url when app gets deployed
+        var url = new URL("https://stockwatch-team12-server.herokuapp.com/"), // Update url when app gets deployed
             params = {'ticker': this.state.input}; //URL params to pass to server
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 

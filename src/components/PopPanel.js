@@ -12,7 +12,7 @@ class PopPanel extends React.Component{
            fb: "..."
         }
         this.getPrices = () => {
-            var url = new URL("http://localhost:5000/pop");
+            var url = new URL("https://stockwatch-team12-server.herokuapp.com/pop");
             fetch(url).then(response =>
                 // console.log(response.json())
                 response.json()
