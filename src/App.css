@@ -2,6 +2,16 @@ element{
   --background-blue: #1a1935;
 }
 
+.news-url {
+  text-decoration: none !important;
+  color:white !important;
+  display: block;
+ }
+
+ .news-list-item{
+   display: inline-block;
+ }
+
 i{
   margin-right: 1rem;
   font-size: larger;
@@ -47,13 +57,14 @@ i{
 
 body {
   background-image: url("./media/bg.jpg");
+  background-attachment: fixed;
   background-size: 100vw 100vh;
   /* background-repeat: no-repeat; */
   color: white;
 }
 
 .card{
-  background-color: #041b4dd6 !important;
+  background-color: #041b4dc9 !important;
   padding-right: 0;
 
 }
@@ -62,8 +73,34 @@ body {
   background-color: #1d1b3b !important;
 }
 
+/* .card-img-top{
+  max-width: 100%;
+  filter: brightness(50%);
+} */
+
 #dash-row{
   padding-left: 8rem;
+}
+
+#news-row{
+  padding-top: 2rem;
+}
+
+.news-card-grp{
+  padding-left: 0 !important;
+}
+
+.news-card-grp .card{
+  margin: 1rem;
+}
+
+.news-item{
+  text-align: left ;
+  padding-left: 3rem;
+}
+
+.news-img{
+  border-radius: 1.5rem;
 }
 
 .data-card{
@@ -71,9 +108,13 @@ body {
 }
 
 .list-group-item{
-  background-color: #041b4dd6 !important;
+  background-color: #041b4dc9 !important;
   padding-top: 1rem;
   /* border: lightgray 1px solid !important; */
+}
+
+.news-text-secondary{
+  color: rgb(165, 165, 165) !important;
 }
 
 #chart-container{
@@ -95,7 +136,7 @@ body {
 }
 
 .btn-primary{
-  background-color:#041b4dd6 !important;
+  background-color:#041b4dc9 !important;
   border: 0px !important;
 }
 

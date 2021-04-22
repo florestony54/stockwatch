@@ -75,7 +75,7 @@ class Chart extends React.Component{
 }
 
     componentDidMount(){
-        console.log("Props data: " + this.props.data)
+        // console.log("Props data: " + this.props.data)
        this.setState({data: this.props.data})
         this.drawChart(this.props.ticker)
     }
