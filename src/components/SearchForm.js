@@ -23,6 +23,7 @@ class SearchForm extends React.Component{
     }
 
     handleSubmit(event){
+        var now = new Date()
         var url = new URL("https://whispering-cliffs-51262.herokuapp.com/"), // Update url when app gets deployed
             params = {'ticker': this.state.input}; //URL params to pass to server
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -50,13 +51,15 @@ class SearchForm extends React.Component{
                        return <NewsPanelItem key={index} 
                                             title={item.title}
                                             url={item.link}
-                                            provider={item.publisher} />
+                                            provider={item.publisher} 
+                                            date={item.published_at}/>
                     } else {
                         return <NewsPanelItem key={index} 
                                             title={item.title}
                                             url={item.link}
                                             provider={item.publisher}
                                             img={item.main_image.original_url}
+                                            date={item.published_at}
                                             />
                     }
                                 
