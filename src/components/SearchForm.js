@@ -81,12 +81,15 @@ class SearchForm extends React.Component{
             <div >
                 <form id='ticker-form' onSubmit={this.handleSubmit}>
                     <div className="container mb-3 col-2">
-                        <label for="exampleInputEmail1" className="form-label">Ticker Symbol</label>
-                        <input input={this.state.input} 
-                                type="text" className="form-control" 
-                                id="exampleInputEmail1" 
-                                aria-describedby="emailHelp"
-                                onChange={this.handleChange}></input>
+                        <div className='form-floating'>
+                            <input input={this.state.input} 
+                                    type="text" className="form-control" 
+                                    id="ticker-input" 
+                                    aria-describedby="emailHelp"
+                                    onChange={this.handleChange}
+                                    placeholder='SPY'></input>
+                                <label for="ticker-input" >Ticker Symbol</label>
+                        </div>
                         <div id="emailHelp" className="form-text">Enter a ticker symbol to search.</div>
                     </div>
                     <button  type="submit" className="btn btn-primary">Submit</button>

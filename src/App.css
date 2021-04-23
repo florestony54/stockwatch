@@ -2,6 +2,10 @@ element{
   --background-blue: #1a1935;
 }
 
+a{
+  color: white;
+}
+
 .news-url {
   text-decoration: none !important;
   color:white !important;
@@ -142,4 +146,14 @@ body {
 
 #ticker-form{
   margin-bottom: 3rem;
+}
+
+#myTab{
+  background-color: #041b4dc9;
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem;
+}
+
+label{
+  color: gray;
 }
