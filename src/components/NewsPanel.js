@@ -24,13 +24,10 @@ class NewsPanel extends React.Component{
                     <NewsPanelItem />
                     <NewsPanelItem />
                     <NewsPanelItem />
-
                 </ul>
-                
-
             </div>
             )
-    }
+        }
 }
 
 

@@ -45,10 +45,7 @@ class NewsPanelItem extends React.Component{
                             </div>
                         </div>    
                     </a>
-                </li> 
-                                  
-                    
-                    
+                </li>  
             )
     }
 }

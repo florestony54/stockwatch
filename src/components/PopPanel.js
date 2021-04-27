@@ -1,4 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 class PopPanel extends React.Component{
@@ -61,6 +61,7 @@ class PopPanel extends React.Component{
                     Popular Tech Stocks
                 </div> */}
                 <div className='tab-content' id='myTabcontent'>
+                
                     {/* Tech */}
                     <div id='tech' class="tab-pane fade show active list-group list-group-flush " role="tabpanel" aria-labelledby="tech-tab">
                         <li class="list-group-item">
@@ -96,6 +97,7 @@ class PopPanel extends React.Component{
                         </li>
 
                     </div>
+
                     {/* Market */}
                     <div id='market' class="tab-pane fade list-group list-group-flush " role="tabpanel" aria-labelledby="market-tab">
                         <li class="list-group-item">
