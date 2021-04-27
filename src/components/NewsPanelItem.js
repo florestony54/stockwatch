@@ -36,7 +36,7 @@ class NewsPanelItem extends React.Component{
         return (
                 
                 <li class="list-group-item news-list-item">   
-                    <a class="news-url" href={this.state.url}>
+                    <a class="news-url" href={this.state.url} target="_blank">
                         <div className='row'>
                             <img class="col-2 news-img" src={this.state.img} alt=""></img>
                             <div class='col-9 news-item'>
