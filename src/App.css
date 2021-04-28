@@ -122,6 +122,10 @@ body {
   color: rgb(165, 165, 165) !important;
 }
 
+.stat-text{
+  color:rgb(47, 255, 47);
+}
+
 #chart-container{
   margin-left: 1rem;
   margin-right: 1rem;

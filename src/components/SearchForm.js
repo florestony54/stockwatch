@@ -12,7 +12,8 @@ class SearchForm extends React.Component{
             input:'',
             chart: null,
             newsFeed: null,
-            newsItems: []
+            newsItems: [],
+            stats: null
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,6 +24,7 @@ class SearchForm extends React.Component{
     }
 
     handleSubmit(event){
+        // "https://whispering-cliffs-51262.herokuapp.com/"
         var now = new Date()
         var url = new URL("https://whispering-cliffs-51262.herokuapp.com/"), // Update url when app gets deployed
             params = {'ticker': this.state.input}; //URL params to pass to server
@@ -36,8 +38,12 @@ class SearchForm extends React.Component{
 
         fetch(url).then(response => 
                 response.json()
-        ).then(dat => this.setState({chart: <Chart ticker={this.state.input}
-            data={dat} />})).catch((err) => {
+        ).then(dat => {
+            this.setState({chart: <Chart ticker={this.state.input}
+                data={dat[0]} />}) //[0] for chart data
+            this.setState({stats: <DataPanel data={dat[1]} />}) //[1] for stats
+                
+            }).catch((err) => {
                 console.log(err);
                 alert("Invalid. Please use a valid ticker symbol.")
             })
@@ -45,7 +51,7 @@ class SearchForm extends React.Component{
         fetch(newsUrl).then(response =>
             response.json()
             ).then(data =>
-                this.setState({
+                this.setState({ //Mapping News Items 
                     newsFeed: data.items.result.slice(0,9).map((item, index) =>{ 
                     if (item.main_image == undefined){
                        return <NewsPanelItem key={index} 
@@ -94,13 +100,14 @@ class SearchForm extends React.Component{
                     </div>
                     <button  type="submit" className="btn btn-primary">Submit</button>
                 </form>
+
                 <div id='dash-row' className='row'>
                     <PopPanel />
                     <div id='chart-container' className="col-6 d-flex justify-content-center">
                         {this.state.chart}
                     </div>
-                    <DataPanel />
-                    {/* <InfoPanel /> */}
+                    {this.state.stats}
+                    {/* <DataPanel /> */}
                 </div>
                 <div id='news-row' className='row justify-content-center'>
                     <div className='col-7'>
