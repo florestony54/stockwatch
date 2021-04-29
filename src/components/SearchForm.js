@@ -3,6 +3,7 @@ import Chart from './Chart';
 import PopPanel from './PopPanel';
 import DataPanel from './DataPanel';
 import NewsPanelItem from './NewsPanelItem';
+import SummaryPanel from './SummaryPanel';
 
 
 class SearchForm extends React.Component{
@@ -13,7 +14,8 @@ class SearchForm extends React.Component{
             chart: null,
             newsFeed: null,
             newsItems: [],
-            stats: null
+            stats: null,
+            summary: null
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,7 +44,7 @@ class SearchForm extends React.Component{
             this.setState({chart: <Chart ticker={this.state.input}
                 data={dat[0]} />}) //[0] for chart data
             this.setState({stats: <DataPanel data={dat[1]} />}) //[1] for stats
-                
+            this.setState({summary: <SummaryPanel />})
             }).catch((err) => {
                 console.log(err);
                 alert("Invalid. Please use a valid ticker symbol.")
@@ -85,37 +87,47 @@ class SearchForm extends React.Component{
     render(){
         return (
             <div >
-                <form id='ticker-form' onSubmit={this.handleSubmit}>
-                    <div className="container mb-3 col-2">
-                        <div className='form-floating'>
-                            <input input={this.state.input} 
-                                    type="text" className="form-control" 
-                                    id="ticker-input" 
-                                    aria-describedby="emailHelp"
-                                    onChange={this.handleChange}
-                                    placeholder='SPY'></input>
-                                <label for="ticker-input" >Ticker Symbol</label>
+                <div id='side-nav'>
+                    <form id='ticker-form' onSubmit={this.handleSubmit}>
+                        <div className="">
+                            <div className='form-floating'>
+                                <input input={this.state.input} 
+                                        type="text" className="form-control" 
+                                        id="ticker-input" 
+                                        aria-describedby="searchHelp"
+                                        onChange={this.handleChange}
+                                        placeholder='SPY'></input>
+                                    <label for="ticker-input" >Ticker Symbol</label>
+                            </div>
+                            <div id="searchHelp" className="form-text">Enter a ticker symbol to search</div>
                         </div>
-                        <div id="emailHelp" className="form-text">Enter a ticker symbol to search.</div>
-                    </div>
-                    <button  type="submit" className="btn btn-primary">Submit</button>
-                </form>
+                        <button  type="submit" className="btn btn-primary">Submit</button>
+                        <PopPanel />
+                    </form>
+                </div>
 
                 <div id='dash-row' className='row'>
-                    <PopPanel />
+                <div className='row justify-content-center'>
+                    <h1 className='card col-4'>COMPANY NAME</h1>
+                </div>
+                    
                     <div id='chart-container' className="col-6 d-flex justify-content-center">
                         {this.state.chart}
                     </div>
-                    {this.state.stats}
-                    {/* <DataPanel /> */}
+                    <div className='col-3'>
+                        {this.state.stats}
+                        {this.state.summary}
+                    </div>
                 </div>
+
                 <div id='news-row' className='row justify-content-center'>
-                    <div className='col-7'>
+                    <div className='col-5'>
                         <ul id="news-list" class="list-group">
                             {this.state.newsFeed}
 
                         </ul>
                     </div>
+                    
                 </div>
                 
             </div>

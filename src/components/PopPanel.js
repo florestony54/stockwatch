@@ -48,7 +48,7 @@ class PopPanel extends React.Component{
 
     render(){
         return (
-            <div id='pop-stocks' className="card col-2 nav nav-tabs" >
+            <div id='pop-stocks' className="card nav nav-tabs" >
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="tech-tab" data-toggle="tab" href="#tech" role="tab" aria-controls="tech" aria-selected="true">Tech</a>

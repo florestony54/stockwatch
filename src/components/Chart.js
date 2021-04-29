@@ -19,7 +19,7 @@ class Chart extends React.Component{
         this.setState({ticker: tick})
         const chart = createChart(document.querySelector(".tradingview-widget-container"), 
         { width: this.state.chartContainer.offsetWidth,
-            height: 410});
+            height: this.state.chartContainer.offsetWidth * .625});
         const candleSeries = chart.addCandlestickSeries();
         chart.applyOptions({
             layout: {
@@ -49,7 +49,7 @@ class Chart extends React.Component{
                 this.setState({chartContainer: document.getElementById('chart-container')})
                 if (timerID) clearTimeout(timerID);
                 timerID = setTimeout(function() {
-                    chart.resize( this.state.chartContainer.offsetWidth, 410);
+                    chart.resize(this.state.chartContainer.offsetWidth, this.state.chartContainer.offsetWidth*.625);
                 }.bind(this), 200);
             }.bind(this)
 }

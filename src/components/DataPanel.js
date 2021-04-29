@@ -38,8 +38,8 @@ class DataPanel extends React.Component{
 
     render(){
         return (
-            <div className="col-3">
-                <div className='row'>
+            <div className="" id="data-card-col">
+                <div className='row data-row'>
                     <div className='card col-12 data-card'>
                         <h6 className='card-title'>Market Cap</h6>
                         <p className='card-text stat-text'>{this.state.mktcap}</p>                    
@@ -53,7 +53,7 @@ class DataPanel extends React.Component{
                         <p className='card-text stat-text'>{this.state.avol}</p>
                     </div>
                 </div>
-                <div className='row'>
+                <div className='row data-row'>
                     <div className='card col-12 data-card'>
                         <h6 className='card-title'>Volume</h6>
                         <p className='card-text stat-text'>{this.state.vol}</p>                    
