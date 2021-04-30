@@ -4,19 +4,23 @@ import PopPanel from './PopPanel';
 import DataPanel from './DataPanel';
 import NewsPanelItem from './NewsPanelItem';
 import SummaryPanel from './SummaryPanel';
+import CompanyHeader from './CompanyHeader';
+import Spinner from './Spinner';
 
 
 class SearchForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            dataLoaded: false,
             input:'',
             ticker: null,
             chart: null,
             newsFeed: null,
             newsItems: [],
             stats: null,
-            summary: null
+            summary: null,
+            company: null
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,7 +32,7 @@ class SearchForm extends React.Component{
 
     handleSubmit(event){
         // "https://whispering-cliffs-51262.herokuapp.com/"
-        var now = new Date()
+        this.setState({dataLoaded: false});
         var url = new URL("https://whispering-cliffs-51262.herokuapp.com/"), // Update url when app gets deployed
             params = {'ticker': this.state.input}; //URL params to pass to server
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -37,20 +41,24 @@ class SearchForm extends React.Component{
             params = {'ticker': this.state.input}; //URL params to pass to server
         Object.keys(params).forEach(key => newsUrl.searchParams.append(key, params[key]));
 
-        console.log('Searching Ticker Symbol: ' + this.state.input)
+        var sumUrl = new URL("https://whispering-cliffs-51262.herokuapp.com/summary"), // Update url when app gets deployed
+            params = { 'ticker': this.state.input }; //URL params to pass to server
+        Object.keys(params).forEach(key => sumUrl.searchParams.append(key, params[key]));
 
+        // Get Chart and Stats from server
         fetch(url).then(response => 
                 response.json()
         ).then(dat => {
             this.setState({chart: <Chart ticker={this.state.input}
                 data={dat[0]} />}) //[0] for chart data
             this.setState({stats: <DataPanel data={dat[1]} />}) //[1] for stats
-            this.setState({summary: <SummaryPanel />})
             this.setState({ ticker: this.state.input.toUpperCase() })
             }).catch((err) => {
                 console.log(err);
                 alert("Invalid. Please use a valid ticker symbol.")
             })
+
+        // Get News
         this.setState({newsFeed: null})
         fetch(newsUrl).then(response =>
             response.json()
@@ -78,8 +86,23 @@ class SearchForm extends React.Component{
             ).catch((err) => {
                 console.log(err)
             })
+
+            // Get Company Summary
+            this.setState({summary: null})
+            fetch(sumUrl).then(response =>
+                response.json()
+                ).then(data =>{
+                    this.setState({
+                        company: <CompanyHeader name={data.quoteType.longName} ticker={this.state.input.toUpperCase()} />
+                    })
+                    this.setState({ summary: <SummaryPanel company={data.quoteType.longName} summary={data.summaryProfile.longBusinessSummary} /> })
+                }
+                ).catch((err) => {
+                    console.log(err)
+                })
+                
             event.preventDefault();
-        
+        this.setState({ dataLoaded: true })
     }
 
     componentDidMount(){
@@ -87,43 +110,20 @@ class SearchForm extends React.Component{
     }
 
     render(){
-        return (
-            <div >
-                <div className='col-2' id='side-nav'>
-                    <form id='ticker-form' onSubmit={this.handleSubmit}>
-                        <div className="">
-                            <div className='form-floating'>
-                                <input input={this.state.input} 
-                                        type="text" className="form-control" 
-                                        id="ticker-input" 
-                                        aria-describedby="searchHelp"
-                                        onChange={this.handleChange}
-                                        placeholder='SPY'></input>
-                                    <label for="ticker-input" >Ticker Symbol</label>
-                            </div>
-                            <div id="searchHelp" className="form-text">Enter a ticker symbol to search</div>
-                        </div>
-                        <button  type="submit" className="btn btn-primary">Get Data</button>
-                        <PopPanel />
-                    </form>
-                </div>
-
+        const loaded = this.state.dataLoaded;
+        let dashboard;
+        if (loaded == true) {
+            dashboard =
                 <div id='main-dash' className='col'>
                     <div id='dash-row' className='row'>
-                    <div className='row justify-content-end'>
-                        <h1 id='company-name' className='card col-10 '>
-                                COMPANY NAME
-                            <span class="badge bg-danger">{this.state.ticker }</span>
-                        </h1>
-                            
-                    </div>
-                        
+                        {this.state.company}
+
                         <div id='chart-container' className="col-7 d-flex justify-content-center">
                             {this.state.chart}
                         </div>
                         <div className='col-3'>
                             {this.state.stats}
-                            
+
                         </div>
                     </div>
 
@@ -139,7 +139,33 @@ class SearchForm extends React.Component{
                         </div>
                     </div>
                 </div>
-                
+        } 
+
+        return ( 
+            <div >
+                <div className='col-2' id='side-nav'>
+                    <form id='ticker-form' onSubmit={this.handleSubmit}>
+                        <div className="">
+                            <div className='form-floating'>
+                                <input input={this.state.input} 
+                                        type="text" className="form-control" 
+                                        id="ticker-input" 
+                                        aria-describedby="searchHelp"
+                                        onChange={this.handleChange}
+                                        placeholder='SPY'></input>
+                                    <label for="ticker-input" >Ticker Symbol</label>
+                            </div>
+                            <div id="searchHelp" className="form-text">Enter a ticker symbol to search</div>
+                        </div>
+                        <button  type="submit" className="btn btn-primary">
+                            Get Data
+                        </button>
+                        <PopPanel />
+                    </form>
+                </div>
+
+                {dashboard}
+
             </div>
             )
     }

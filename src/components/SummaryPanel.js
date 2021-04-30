@@ -4,14 +4,24 @@ class SummaryPanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ticker: '',
-            company: 'Company',
-            summary: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.'
+            company: null,
+            summary: null
         }
     }
 
-    componentDidUpdate() {
+    updateSummary(){
+        this.setState({company: this.props.company})
+        this.setState({summary: this.props.summary})
+    }
 
+    componentDidMount(){
+        this.updateSummary()
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.company != prevProps.company) {
+            this.updateSummary()
+        }
     }
 
     render() {
