@@ -11,6 +11,7 @@ class SearchForm extends React.Component{
         super(props);
         this.state = {
             input:'',
+            ticker: null,
             chart: null,
             newsFeed: null,
             newsItems: [],
@@ -45,6 +46,7 @@ class SearchForm extends React.Component{
                 data={dat[0]} />}) //[0] for chart data
             this.setState({stats: <DataPanel data={dat[1]} />}) //[1] for stats
             this.setState({summary: <SummaryPanel />})
+            this.setState({ ticker: this.state.input.toUpperCase() })
             }).catch((err) => {
                 console.log(err);
                 alert("Invalid. Please use a valid ticker symbol.")
@@ -87,7 +89,7 @@ class SearchForm extends React.Component{
     render(){
         return (
             <div >
-                <div id='side-nav'>
+                <div className='col-2' id='side-nav'>
                     <form id='ticker-form' onSubmit={this.handleSubmit}>
                         <div className="">
                             <div className='form-floating'>
@@ -101,33 +103,41 @@ class SearchForm extends React.Component{
                             </div>
                             <div id="searchHelp" className="form-text">Enter a ticker symbol to search</div>
                         </div>
-                        <button  type="submit" className="btn btn-primary">Submit</button>
+                        <button  type="submit" className="btn btn-primary">Get Data</button>
                         <PopPanel />
                     </form>
                 </div>
 
-                <div id='dash-row' className='row'>
-                <div className='row justify-content-center'>
-                    <h1 className='card col-4'>COMPANY NAME</h1>
-                </div>
-                    
-                    <div id='chart-container' className="col-6 d-flex justify-content-center">
-                        {this.state.chart}
+                <div id='main-dash' className='col'>
+                    <div id='dash-row' className='row'>
+                    <div className='row justify-content-end'>
+                        <h1 id='company-name' className='card col-10 '>
+                                COMPANY NAME
+                            <span class="badge bg-danger">{this.state.ticker }</span>
+                        </h1>
+                            
                     </div>
-                    <div className='col-3'>
-                        {this.state.stats}
-                        {this.state.summary}
+                        
+                        <div id='chart-container' className="col-7 d-flex justify-content-center">
+                            {this.state.chart}
+                        </div>
+                        <div className='col-3'>
+                            {this.state.stats}
+                            
+                        </div>
                     </div>
-                </div>
 
-                <div id='news-row' className='row justify-content-center'>
-                    <div className='col-5'>
-                        <ul id="news-list" class="list-group">
-                            {this.state.newsFeed}
+                    <div id='news-row' className='row justify-content-end'>
+                        <div className='col-7'>
+                            <ul id="news-list" class="list-group">
+                                {this.state.newsFeed}
 
-                        </ul>
+                            </ul>
+                        </div>
+                        <div className='col-3'>
+                            {this.state.summary}
+                        </div>
                     </div>
-                    
                 </div>
                 
             </div>

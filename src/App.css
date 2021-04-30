@@ -15,7 +15,7 @@ a{
  .news-list-item{
    display: inline-block;
    padding-bottom: 0rem;
-   border-bottom: #394f6f 1px solid !important;
+   border-bottom: #7f7f7f 1px solid !important;
  }
 
  .news-list-item:hover {
@@ -26,9 +26,10 @@ i{
   margin-right: 1rem;
   font-size: larger;
 }
-.App {
+
+/* .App {
   text-align: center;
-}
+} */
 
 .App-logo {
   height: 40vmin;
@@ -66,6 +67,7 @@ i{
 }
 
 body {
+  font-family: 'Roboto', sans-serif;
   background-image: url("./media/bg.jpg");
   background-attachment: fixed;
   background-size: 100vw 100vh;
@@ -74,7 +76,8 @@ body {
 }
 
 .card{
-  background-color: #041b4dc9 !important;
+  background-color: transparent !important; /* #041b4dc9 !important;*/
+  border: none;
   border-radius: 0 !important;
   padding-right: 0;
   word-wrap: normal; /* Fixes news panel moving down when changing tab on PopPanel */
@@ -90,8 +93,12 @@ body {
 } */
 
 #dash-row{
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
   justify-content: flex-end;
+}
+
+#main-dash{
+  background-color: #041b4dc9 !important;
 }
 
 #news-row{
@@ -113,21 +120,27 @@ body {
 
 .news-img{
   border-radius: .5rem;
+  height: auto;
+  object-fit: scale-down;
 }
 
 #news-list{
   margin-right: 1rem;
+  margin-left: 2rem;
 }
 
-/* .data-card{
-} */
+.data-card{
+  padding: 1rem;
+}
 
 #data-card-col{
   height: fit-content;
+  padding-left: 2rem;
+  font-weight: bold;
 }
 
 #summary-panel{
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
   padding: 2rem;
 }
 
@@ -136,9 +149,11 @@ body {
 }
 
 .list-group-item{
-  background-color: #041b4dc9 !important;
-  padding-top: 1rem;
-  /* border: lightgray 1px solid !important; */
+  background-color: transparent !important; /* #041b4dc9 !important;*/
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  border: none;
+  margin-left: .1rem;
 }
 
 .news-text-secondary{
@@ -151,7 +166,7 @@ body {
 
 #chart-container{
   margin-left: 1rem;
-  margin-right: 1rem;
+  /* margin-right: 1rem; */
   /* text-align: -webkit-center; */
 }
 
@@ -162,11 +177,11 @@ body {
 
 #side-nav{
   height: 100%;
-    width: 20rem;
+    /* width: 20rem; */
     position: fixed;
     z-index: 1;
     top: 0;
-    left: 0;
+    /* left: 0; */
     background-color:#041b4dc9;
     overflow-x: hidden;
     padding-top: 10rem;
@@ -175,6 +190,8 @@ body {
 #pop-stocks{
   margin-top: 2rem;
   background-color: transparent !important;
+  font-weight: bold;
+  text-align: left;
 }
 
 .tab-pane>.list-group-item {
@@ -182,12 +199,13 @@ body {
 }
 
 .btn-primary{
-  background-color:#041b4dc9 !important;
+  background-color:#3d7bff !important;
   border: 0px !important;
 }
 
 #ticker-form{
   margin-bottom: 3rem;
+  text-align: center;
 }
 
 #myTab{
@@ -206,4 +224,24 @@ label{
 
 .row{
     --bs-gutter-x: 0 !important;
+}
+
+#company-name{
+  padding: 1rem;
+  padding-left: 2rem;
+  text-align: left;
+  font-weight: bold;
+  display: block;
+}
+
+.tv-lightweight-charts{
+  margin-left: 4rem;
+}
+
+.badge{
+  padding: .25em .35em !important;
+  width: fit-content;
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  vertical-align: middle;
 }

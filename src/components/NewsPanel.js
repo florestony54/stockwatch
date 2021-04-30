@@ -18,6 +18,7 @@ class NewsPanel extends React.Component{
     render(){
         return (
             <div className='col-7'>
+                <h2>In The News</h2>
                 <ul class="list-group">
                     <NewsPanelItem />
                     <NewsPanelItem />
