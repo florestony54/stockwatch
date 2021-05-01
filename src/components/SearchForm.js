@@ -20,46 +20,57 @@ class SearchForm extends React.Component{
             newsItems: [],
             stats: null,
             summary: null,
-            company: null
+            company: null,
+            // related: null
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.submitFromLink = this.submitFromLink.bind(this);
     }
 
     handleChange(event){
         this.setState({input: event.target.value})
     }
 
-    handleSubmit(event){
+    submitFromLink(event, sym){
+        var val = event.target.firstChild.data
+        this.handleSubmit(event, sym)
+    }
+
+    handleSubmit(event, sym){
         // "https://whispering-cliffs-51262.herokuapp.com/"
+        // "http://localhost:5000/"
         this.setState({dataLoaded: false});
-        var url = new URL("https://whispering-cliffs-51262.herokuapp.com/"), // Update url when app gets deployed
-            params = {'ticker': this.state.input}; //URL params to pass to server
+        var url = new URL("http://localhost:5000/"),
+            params = {'ticker': sym}; //URL params to pass to server
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
-        var newsUrl = new URL("https://whispering-cliffs-51262.herokuapp.com/news"), // Update url when app gets deployed
-            params = {'ticker': this.state.input}; //URL params to pass to server
+        var newsUrl = new URL("http://localhost:5000/news"),
+            params = {'ticker': sym}; //URL params to pass to server
         Object.keys(params).forEach(key => newsUrl.searchParams.append(key, params[key]));
 
-        var sumUrl = new URL("https://whispering-cliffs-51262.herokuapp.com/summary"), // Update url when app gets deployed
-            params = { 'ticker': this.state.input }; //URL params to pass to server
+        var sumUrl = new URL("http://localhost:5000/summary"),
+            params = { 'ticker': sym }; //URL params to pass to server
         Object.keys(params).forEach(key => sumUrl.searchParams.append(key, params[key]));
 
         // Get Chart and Stats from server
+        this.setState({chart: <Spinner />})
         fetch(url).then(response => 
                 response.json()
         ).then(dat => {
-            this.setState({chart: <Chart ticker={this.state.input}
-                data={dat[0]} />}) //[0] for chart data
-            this.setState({stats: <DataPanel data={dat[1]} />}) //[1] for stats
-            this.setState({ ticker: this.state.input.toUpperCase() })
+            let relArray = JSON.parse(dat[2]).finance.result[0].quotes  // [2] for related stocks
+            this.setState({chart: <Chart ticker={sym}
+                data={dat[0]} />})                                      // [0] for chart data
+            this.setState({stats: <DataPanel data={dat[1]} related={relArray} />}) // [1] for stats
+            this.setState({ticker: sym.toUpperCase() })
+            // this.setState({related: relArray})
             }).catch((err) => {
                 console.log(err);
                 alert("Invalid. Please use a valid ticker symbol.")
             })
 
         // Get News
-        this.setState({newsFeed: null})
+        this.setState({newsFeed:null})
         fetch(newsUrl).then(response =>
             response.json()
             ).then(data =>
@@ -88,12 +99,12 @@ class SearchForm extends React.Component{
             })
 
             // Get Company Summary
-            this.setState({summary: null})
+            // this.setState({company: null})
             fetch(sumUrl).then(response =>
                 response.json()
                 ).then(data =>{
                     this.setState({
-                        company: <CompanyHeader name={data.quoteType.longName} ticker={this.state.input.toUpperCase()} />
+                        company: <CompanyHeader name={data.quoteType.longName} ticker={sym.toUpperCase()} />
                     })
                     this.setState({ summary: <SummaryPanel company={data.quoteType.longName} summary={data.summaryProfile.longBusinessSummary} /> })
                 }
@@ -144,7 +155,7 @@ class SearchForm extends React.Component{
         return ( 
             <div >
                 <div className='col-2' id='side-nav'>
-                    <form id='ticker-form' onSubmit={this.handleSubmit}>
+                    <form id='ticker-form' onSubmit={(event) => this.handleSubmit(event, this.state.input)}>
                         <div className="">
                             <div className='form-floating'>
                                 <input input={this.state.input} 
@@ -160,7 +171,7 @@ class SearchForm extends React.Component{
                         <button  type="submit" className="btn btn-primary">
                             Get Data
                         </button>
-                        <PopPanel />
+                        <PopPanel callback={this.submitFromLink}/>
                     </form>
                 </div>
 

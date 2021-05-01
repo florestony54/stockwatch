@@ -27,7 +27,7 @@ class SummaryPanel extends React.Component {
     render() {
         return (
             <div class="card" id='summary-panel'>
-                <div class="card-body">
+                <div class="card-body" id="summary-panel-container">
                     <h5 class="card-title">About {this.state.company}</h5>
                     <p class="card-text">{this.state.summary}</p>
                 </div>

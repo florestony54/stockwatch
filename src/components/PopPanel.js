@@ -57,38 +57,37 @@ class PopPanel extends React.Component{
                         <a class="nav-link" id="market-tab" data-toggle="tab" href="#market" role="tab" aria-controls="market" aria-selected="false">US Market</a>
                     </li>
                 </ul>
-                {/* <div class="card-header">
-                    Popular Tech Stocks
-                </div> */}
+
+                {/* Popular Tech Stocks */}
                 <div className='tab-content' id='myTabcontent'>
                 
                     {/* Tech */}
                     <div id='tech' class="tab-pane fade show active list-group list-group-flush " role="tabpanel" aria-labelledby="tech-tab">
-                        <li class="list-group-item">
+                        <li class="list-group-item"  onClick={(event) => this.props.callback(event, "GOOG")}>
                             <div className='row align-items-center'>
                                 <i class="fab fa-google col-1"></i>
-                                <div className='col-8'>GOOG <div className='pop-price'>{this.state.goog}</div></div>
+                                <div className='col-8' >GOOG <div className='pop-price'>{this.state.goog}</div></div>
                             </div>
                         </li>
-                        <li class="list-group-item">
+                        <li class="list-group-item" onClick={(event) => this.props.callback(event, "AAPL")}>
                             <div className='row align-items-center'>
                                 <i class="fab fa-apple col-1"></i>
                                 <div className='col-8'>AAPL <div className='pop-price'>{this.state.aapl}</div></div>
                             </div>
                             
-                        </li><li class="list-group-item">
+                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, "AMZN")}>
                             <div className='row align-items-center'>
                                 <i class="fab fa-amazon col-1"></i>
                                 <div className='col-8'>AMZN <div className='pop-price'>{this.state.amzn}</div></div>
                             </div>
                             
-                        </li><li class="list-group-item">
+                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, "MSFT")}>
                             <div className='row align-items-center'>
                                 <i class="fab fa-microsoft col-1"></i>
                                 <div className='col-8'>MSFT <div className='pop-price'>{this.state.msft}</div></div>
                             </div>
                             
-                        </li><li class="list-group-item">
+                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, "FB")}>
                             <div className='row align-items-center'>
                                 <i class="fab fa-facebook col-1"></i>
                                 <div className='col-8'>FB <div className='pop-price'>{this.state.fb}</div></div>
