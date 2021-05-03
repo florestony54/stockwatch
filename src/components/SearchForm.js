@@ -21,6 +21,7 @@ class SearchForm extends React.Component{
             stats: null,
             summary: null,
             company: null,
+            errormsg: null
             // related: null
         }
         this.handleChange = this.handleChange.bind(this);
@@ -41,6 +42,7 @@ class SearchForm extends React.Component{
         // "https://whispering-cliffs-51262.herokuapp.com/"
         // "http://localhost:5000/"
         this.setState({dataLoaded: false});
+        this.setState({errormsg: null})
         var url = new URL("https://whispering-cliffs-51262.herokuapp.com/"),
             params = {'ticker': sym}; //URL params to pass to server
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -61,12 +63,15 @@ class SearchForm extends React.Component{
             let relArray = JSON.parse(dat[2]).finance.result[0].quotes  // [2] for related stocks
             this.setState({chart: <Chart ticker={sym}
                 data={dat[0]} />})                                      // [0] for chart data
-            this.setState({stats: <DataPanel data={dat[1]} related={relArray} />}) // [1] for stats
+            this.setState({stats: <DataPanel data={JSON.parse(dat[1])} related={relArray} />}) // [1] for stats
             this.setState({ticker: sym.toUpperCase() })
             // this.setState({related: relArray})
             }).catch((err) => {
                 console.log(err);
-                alert("Invalid. Please use a valid ticker symbol.")
+                this.setState({errormsg: <div class="alert alert-danger" role="alert">
+                                            There was an error with your search. Please make sure the symbol you searched is a valid ticker symbol.
+                                        </div>})
+                // alert("Invalid. Please use a valid ticker symbol.")
             })
 
         // Get News
@@ -174,8 +179,9 @@ class SearchForm extends React.Component{
                         <PopPanel callback={this.submitFromLink}/>
                     </form>
                 </div>
-
+               
                 {dashboard}
+                {this.state.errormsg}
 
             </div>
             )

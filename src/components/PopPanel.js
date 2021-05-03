@@ -9,26 +9,37 @@ class PopPanel extends React.Component{
            aapl: "...",
            amzn: "...",
            msft: "...",
-           fb: "..."
+           fb: "...",
+            marketName: ["", "", "", "", ""],
+            marketIdx: ["", "", "", "", ""]
         }
         this.getPrices = () => {
+            // http://localhost:5000
+            // https://whispering-cliffs-51262.herokuapp.com
             var url = new URL("https://whispering-cliffs-51262.herokuapp.com/pop");
             fetch(url).then(response =>
                 // console.log(response.json())
                 response.json()
-            ).then(dat =>
+            ).then(dat =>{
+                let tempMarket = []
+                let tempMarketNames = []
+                let quotes = JSON.parse(dat.tech).finance.result[0].quotes
+                let marketObj = JSON.parse(dat.market).marketSummaryAndSparkResponse.result
+
+                for (let i = 0; i < 5; i++){
+                    tempMarketNames.push(marketObj[i].shortName)
+                    tempMarket.push(marketObj[i].spark.close[0])
+                }
                 this.setState({
-                    aapl: "$" + dat.aapl,
-                    goog: "$" + dat.goog,
-                    amzn: "$" + dat.amzn,
-                    msft: "$" + dat.msft,
-                    fb: "$" + dat.fb,
-                    sp500: dat.sp500,
-                    dow: dat.dow,
-                    nasdaq: dat.nasdaq,
-                    russel: dat.russel,
-                    vix: dat.vix,
-                })
+                    aapl: "$" + quotes.AAPL.regularMarketPrice,
+                    goog: "$" + quotes.GOOG.regularMarketPrice,
+                    amzn: "$" + quotes.AMZN.regularMarketPrice,
+                    msft: "$" + quotes.MSFT.regularMarketPrice,
+                    fb: "$" + quotes.FB.regularMarketPrice,
+                    marketName: tempMarketNames,
+                    marketIdx: tempMarket
+
+                })}
             ).catch((err) => {
                 console.log(err);
                 alert("Error with scraping fxn.")
@@ -101,27 +112,27 @@ class PopPanel extends React.Component{
                     <div id='market' class="tab-pane fade list-group list-group-flush " role="tabpanel" aria-labelledby="market-tab">
                         <li class="list-group-item">
                             <div className='row align-items-center'>
-                                <div className='col-8'>Dow<div className='pop-price'>{this.state.dow }</div></div>
+                                <div className='col-8'>{this.state.marketName[0]}<div className='pop-price'>{this.state.marketIdx[0]}</div></div>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div className='row align-items-center'>
-                                <div className='col-8'>S&P 500<div className='pop-price'>{ this.state.sp500}</div></div>
+                                <div className='col-8'>{this.state.marketName[1]}<div className='pop-price'>{this.state.marketIdx[1]}</div></div>
                             </div>
 
                         </li><li class="list-group-item">
                             <div className='row align-items-center'>
-                                <div className='col-8'>Nasdaq <div className='pop-price'>{this.state.nasdaq }</div></div>
+                                <div className='col-8'>{this.state.marketName[2]}<div className='pop-price'>{this.state.marketIdx[2]}</div></div>
                             </div>
 
                         </li><li class="list-group-item">
                             <div className='row align-items-center'>
-                                <div className='col-8'>Russel <div className='pop-price'>{this.state.russel }</div></div>
+                                <div className='col-8'>{this.state.marketName[3]}<div className='pop-price'>{this.state.marketIdx[3]}</div></div>
                             </div>
 
                         </li><li class="list-group-item">
                             <div className='row align-items-center'>
-                                <div className='col-8'>VIX <div className='pop-price'>{this.state.vix }</div></div>
+                                <div className='col-8'>{this.state.marketName[4]}<div className='pop-price'>{this.state.marketIdx[4]}</div></div>
                             </div>
 
                         </li>

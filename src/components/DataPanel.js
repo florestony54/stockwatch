@@ -30,13 +30,22 @@ class DataPanel extends React.Component{
     updateStats(){
         let tempArr = []
         let tempPrice = []
-        this.setState({'52h': this.props.data['52 Week High']})
-        this.setState({'52l': this.props.data['52 Week Low']})
-        this.setState({'mktcap': this.props.data['Market Cap']})
-        this.setState({'avol': this.props.data['Average Volume']})
-        this.setState({'vol': this.props.data['Volume']})
-        this.setState({'div': this.props.data['Dividend Yield']})
-        this.setState({'per': this.props.data['Price-Earnings Ratio']})
+        let tempStats = {
+            '52h': (this.props.data.summaryDetail.fiftyTwoWeekHigh != undefined ? this.props.data.summaryDetail.fiftyTwoWeekHigh.fmt: "-"),
+            '52l': (this.props.data.summaryDetail.fiftyTwoWeekLow != undefined ? this.props.data.summaryDetail.fiftyTwoWeekLow.fmt: "-"),
+            'mktcap': (this.props.data.price.marketCap != undefined ? this.props.data.price.marketCap.fmt: "-"),
+            'avol': (this.props.data.summaryDetail.averageVolume != undefined ? this.props.data.summaryDetail.averageVolume.fmt: "-"),
+            'vol': (this.props.data.summaryDetail.volume != undefined ? this.props.data.summaryDetail.volume.fmt: "-"),
+            'div': (this.props.data.summaryDetail.dividendYield != undefined ? this.props.data.summaryDetail.dividendYield.fmt : "-"),
+            'per': (this.props.data.summaryDetail.trailingPE != undefined ? this.props.data.summaryDetail.trailingPE.fmt : "-"),
+        }
+        this.setState({'52h': tempStats['52h']})
+        this.setState({ '52l': tempStats['52l']})
+        this.setState({'mktcap': tempStats.mktcap})
+        this.setState({ 'avol':tempStats.avol})
+        this.setState({ 'vol': tempStats.vol})
+        this.setState({ 'div':tempStats.div})
+        this.setState({ 'per': tempStats.per})
         for (let i = 0; i <5; i++){
             tempArr[i] = this.props.related[i].symbol
         }
