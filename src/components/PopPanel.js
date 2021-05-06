@@ -11,24 +11,37 @@ class PopPanel extends React.Component{
            msft: "...",
            fb: "...",
             marketName: ["", "", "", "", ""],
-            marketIdx: ["", "", "", "", ""]
+            marketIdx: ["", "", "", "", ""],
+            trendingNames: ["", "", "", "", ""],
+            trendingPrices: ["", "", "", "", ""]
         }
+        // Fetch Symbols, Prices, and Market data from server
         this.getPrices = () => {
             // http://localhost:5000
             // https://whispering-cliffs-51262.herokuapp.com
-            var url = new URL("https://whispering-cliffs-51262.herokuapp.com/pop");
+            var url = new URL("http://localhost:5000/pop");
             fetch(url).then(response =>
-                // console.log(response.json())
                 response.json()
             ).then(dat =>{
+                
                 let tempMarket = []
                 let tempMarketNames = []
+                let tempTrending = []
+                let tempTrendingNames = []
                 let quotes = JSON.parse(dat.tech).finance.result[0].quotes
                 let marketObj = JSON.parse(dat.market).marketSummaryAndSparkResponse.result
-
+                let trendingObj = JSON.parse(dat.trending).finance.result[0].quotes
                 for (let i = 0; i < 5; i++){
-                    tempMarketNames.push(marketObj[i].shortName)
-                    tempMarket.push(marketObj[i].spark.close[0])
+                    tempMarketNames.push(marketObj[i].shortName);
+                    tempMarket.push(marketObj[i].spark.close[0]);
+                    
+                }
+                // Search through full list of trending tickers
+                for (let j = 0; j < 20; j++) {
+                    if (trendingObj[j].quoteType == "EQUITY") { // Only equities
+                        tempTrendingNames.push(trendingObj[j].symbol)
+                        tempTrending.push(trendingObj[j].regularMarketPrice)
+                    }
                 }
                 this.setState({
                     aapl: "$" + quotes.AAPL.regularMarketPrice,
@@ -37,7 +50,9 @@ class PopPanel extends React.Component{
                     msft: "$" + quotes.MSFT.regularMarketPrice,
                     fb: "$" + quotes.FB.regularMarketPrice,
                     marketName: tempMarketNames,
-                    marketIdx: tempMarket
+                    marketIdx: tempMarket,
+                    trendingNames: tempTrendingNames,
+                    trendingPrices: tempTrending
 
                 })}
             ).catch((err) => {
@@ -61,8 +76,12 @@ class PopPanel extends React.Component{
         return (
             <div id='pop-stocks' className="card nav nav-tabs" >
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    
                     <li class="nav-item">
                         <a class="nav-link active" id="tech-tab" data-toggle="tab" href="#tech" role="tab" aria-controls="tech" aria-selected="true">Tech</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="trending-tab" data-toggle="tab" href="#trending" role="tab" aria-controls="trending" aria-selected="false">Trending Tickers</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="market-tab" data-toggle="tab" href="#market" role="tab" aria-controls="market" aria-selected="false">US Market</a>
@@ -71,7 +90,6 @@ class PopPanel extends React.Component{
 
                 {/* Popular Tech Stocks */}
                 <div className='tab-content' id='myTabcontent'>
-                
                     {/* Tech */}
                     <div id='tech' class="tab-pane fade show active list-group list-group-flush " role="tabpanel" aria-labelledby="tech-tab">
                         <li class="list-group-item"  onClick={(event) => this.props.callback(event, "GOOG")}>
@@ -107,6 +125,38 @@ class PopPanel extends React.Component{
                         </li>
 
                     </div>
+
+                    {/* Trending Tickers */}
+                    <div id='trending' class="tab-pane fade list-group list-group-flush " role="tabpanel" aria-labelledby="trending-tab">
+                        <li class="list-group-item" onClick={(event) => this.props.callback(event, this.state.trendingNames[0])}>
+                            <div className='row align-items-center'>
+                                <div className='col-8' >{this.state.trendingNames[0]} <div className='pop-price'>${this.state.trendingPrices[0]}</div></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item" onClick={(event) => this.props.callback(event, this.state.trendingNames[1])}>
+                            <div className='row align-items-center'>
+                                <div className='col-8'>{this.state.trendingNames[1]} <div className='pop-price'>${ this.state.trendingPrices[1] }</div></div>
+                            </div>
+
+                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, this.state.trendingNames[2])}>
+                            <div className='row align-items-center'>
+                                <div className='col-8'>{this.state.trendingNames[2]} <div className='pop-price'>${this.state.trendingPrices[2]}</div></div>
+                            </div>
+
+                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, this.state.trendingNames[3])}>
+                            <div className='row align-items-center'>
+                                <div className='col-8'>{this.state.trendingNames[3]} <div className='pop-price'>${this.state.trendingPrices[3]}</div></div>
+                            </div>
+
+                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, this.state.trendingNames[4])}>
+                            <div className='row align-items-center'>
+                                <div className='col-8'>{this.state.trendingNames[4]} <div className='pop-price'>${this.state.trendingPrices[4]}</div></div>
+                            </div>
+
+                        </li>
+
+                    </div>
+
 
                     {/* Market */}
                     <div id='market' class="tab-pane fade list-group list-group-flush " role="tabpanel" aria-labelledby="market-tab">
