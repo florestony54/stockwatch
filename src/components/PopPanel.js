@@ -16,7 +16,7 @@ class PopPanel extends React.Component{
         this.getPrices = () => {
             // http://localhost:5000
             // https://whispering-cliffs-51262.herokuapp.com
-            var url = new URL("http://localhost:5000/pop");
+            var url = new URL("https://whispering-cliffs-51262.herokuapp.com/pop");
             fetch(url).then(response =>
                 // console.log(response.json())
                 response.json()

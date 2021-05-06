@@ -44,15 +44,15 @@ class SearchForm extends React.Component{
         // "http://localhost:5000/"
         this.setState({dataLoaded: false});
         this.setState({errormsg: null})
-        var url = new URL("http://localhost:5000/"),
+        var url = new URL("https://whispering-cliffs-51262.herokuapp.com/"),
             params = {'ticker': sym}; //URL params to pass to server
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
-        var newsUrl = new URL("http://localhost:5000/news"),
+        var newsUrl = new URL("https://whispering-cliffs-51262.herokuapp.com/news"),
             params = {'ticker': sym}; //URL params to pass to server
         Object.keys(params).forEach(key => newsUrl.searchParams.append(key, params[key]));
 
-        var sumUrl = new URL("http://localhost:5000/summary"),
+        var sumUrl = new URL("https://whispering-cliffs-51262.herokuapp.com/summary"),
             params = { 'ticker': sym }; //URL params to pass to server
         Object.keys(params).forEach(key => sumUrl.searchParams.append(key, params[key]));
 
