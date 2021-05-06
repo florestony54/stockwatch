@@ -56,6 +56,10 @@ i{
   pointer-events: none;
 }
 
+#logo-img{
+  object-fit: scale-down;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -222,7 +226,6 @@ body {
     /* left: 0; */
     background-color:#041b4dc9;
     overflow-x: hidden;
-    padding-top: 10rem;
 }
 
 #sma-btn{
@@ -249,6 +252,10 @@ body {
 .btn-primary{
   background-color:#3d7bff !important;
   border: 0px !important;
+}
+
+.btn-success{
+  margin-left: 1rem;
 }
 
 #ticker-form{

@@ -6,6 +6,7 @@ import NewsPanelItem from './NewsPanelItem';
 import SummaryPanel from './SummaryPanel';
 import CompanyHeader from './CompanyHeader';
 import Spinner from './Spinner';
+import logo from '../media/logo1.png'
 
 
 class SearchForm extends React.Component{
@@ -21,12 +22,15 @@ class SearchForm extends React.Component{
             stats: null,
             summary: null,
             company: null,
-            errormsg: null
+            errormsg: null,
+            chartType: null
             // related: null
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.submitFromLink = this.submitFromLink.bind(this);
+        this.handleIntradaySubmit = this.handleIntradaySubmit.bind(this);
+        this.handleDailySubmit = this.handleDailySubmit.bind(this);
     }
 
     handleChange(event){
@@ -35,25 +39,37 @@ class SearchForm extends React.Component{
 
     submitFromLink(event, sym){
         var val = event.target.firstChild.data
-        this.handleSubmit(event, sym)
+        this.handleSubmit(event, sym, 'daily')
+    }
+
+    handleIntradaySubmit(event){
+        this.handleSubmit(event, this.state.input, 'intra')
+    }
+
+    handleDailySubmit(event){
+        this.handleSubmit(event, this.state.input, 'daily')
     }
 
 
-    handleSubmit(event, sym){
+    handleSubmit(event, sym, chartType){
+        var type = chartType;
+        this.setState({chartType: type})
+
         // "https://whispering-cliffs-51262.herokuapp.com/"
         // "http://localhost:5000/"
         this.setState({dataLoaded: false});
         this.setState({errormsg: null})
-        var url = new URL("https://whispering-cliffs-51262.herokuapp.com/"),
-            params = {'ticker': sym}; //URL params to pass to server
+        var url = new URL("http://localhost:5000/"),
+            params = {'ticker': sym,
+                        'type': type}; //URL params to pass to server
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
-        var newsUrl = new URL("https://whispering-cliffs-51262.herokuapp.com/news"),
+        var newsUrl = new URL("http://localhost:5000/news"),
             params = {'ticker': sym}; //URL params to pass to server
         Object.keys(params).forEach(key => newsUrl.searchParams.append(key, params[key]));
 
-        var sumUrl = new URL("https://whispering-cliffs-51262.herokuapp.com/summary"),
-            params = { 'ticker': sym }; //URL params to pass to server
+        var sumUrl = new URL("http://localhost:5000/summary"),
+            params = {'ticker': sym}; //URL params to pass to server
         Object.keys(params).forEach(key => sumUrl.searchParams.append(key, params[key]));
 
         // Get Chart and Stats from server
@@ -63,7 +79,10 @@ class SearchForm extends React.Component{
         ).then(dat => {
             let relArray = JSON.parse(dat[2]).finance.result[0].quotes  // [2] for related stocks
             this.setState({chart: <Chart ticker={sym}
-                data={dat[0]} />})                                      // [0] for chart data
+                data={dat[0]} 
+                chartType={type}
+                />})                                      // [0] for chart data
+                console.log(dat[0])
             this.setState({stats: <DataPanel data={JSON.parse(dat[1])} related={relArray} />}) // [1] for stats
             this.setState({ticker: sym.toUpperCase() })
             // this.setState({related: relArray})
@@ -162,7 +181,10 @@ class SearchForm extends React.Component{
         return ( 
             <div >
                 <div className='col-2' id='side-nav'>
-                    <form id='ticker-form' onSubmit={(event) => this.handleSubmit(event, this.state.input)}>
+                    <a class="navbar-brand" href="#">
+                        <img src={logo} id="logo-img" width="100%" height="15%" alt=""/>
+                    </a>
+                    <form id='ticker-form'> {/* onSubmit={(event) => this.handleSubmit(event, this.state.input)}> */}
                         <div className="">
                             <div className='form-floating'>
                                 <input input={this.state.input} 
@@ -175,8 +197,11 @@ class SearchForm extends React.Component{
                             </div>
                             <div id="searchHelp" className="form-text">Enter a ticker symbol to search</div>
                         </div>
-                        <button  type="submit" className="btn btn-primary">
-                            Get Data
+                        <button onClick={this.handleDailySubmit} className="btn btn-primary" > {/*type="submit">*/}
+                            Get Daily Chart
+                        </button>
+                        <button onClick={this.handleIntradaySubmit} className="btn btn-success">
+                            Get Intraday Chart
                         </button>
                         <PopPanel callback={this.submitFromLink}/>
                     </form>
