@@ -64,7 +64,7 @@ class Chart extends React.Component{
 
     // Fetch the SMA values for the current stock being viewed
     getSMA() {
-        var url = new URL("http://localhost:5000/sma"),
+        var url = new URL("https://whispering-cliffs-51262.herokuapp.com/sma"),
             params = { 'ticker': this.state.ticker}; //URL params to pass to server
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
@@ -81,7 +81,7 @@ class Chart extends React.Component{
 
     // Fetch the EMA values for the current stock
     getEMA() {
-        var url = new URL("http://localhost:5000/ema"),
+        var url = new URL("https://whispering-cliffs-51262.herokuapp.com/ema"),
             params = { 'ticker': this.state.ticker }; //URL params to pass to server
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
