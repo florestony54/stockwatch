@@ -1,5 +1,11 @@
 import React from 'react';
 
+/*
+/ Component for simple spinner for loading
+/ Author: Tony Flores: https://github.com/florestony54
+/ v3.0
+*/
+
 class Spinner extends React.Component {
     constructor(props) {
         super(props);

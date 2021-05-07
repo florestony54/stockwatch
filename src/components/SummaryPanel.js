@@ -1,5 +1,11 @@
 import React from 'react';
 
+/*
+/ Component containing company summary
+/ Author: Tony Flores: https://github.com/florestony54
+/ v3.0
+*/
+
 class SummaryPanel extends React.Component {
     constructor(props) {
         super(props);
@@ -9,6 +15,7 @@ class SummaryPanel extends React.Component {
         }
     }
 
+    // Lifecycle methods to update the summary and company name when the component updates
     updateSummary(){
         this.setState({company: this.props.company})
         this.setState({summary: this.props.summary})

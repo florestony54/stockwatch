@@ -1,5 +1,11 @@
 import React from 'react';
 
+/*
+/ Component containing the Header information for the company that is searched for
+/ Author: Tony Flores: https://github.com/florestony54
+/ v3.0
+*/
+
 class CompanyHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -9,6 +15,8 @@ class CompanyHeader extends React.Component {
         }
     }
 
+    // React lifecycle methods will just update name and ticker in state 
+    // when the component renders/updates.
     updateHeader(){
         this.setState({ticker: this.props.ticker})
         this.setState({name: this.props.name})

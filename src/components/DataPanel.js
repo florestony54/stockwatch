@@ -1,5 +1,11 @@
 import React from 'react';
 
+/*
+/ Component containing the Key Stats and Related panel data
+/ Author: Tony Flores: https://github.com/florestony54
+/ v3.0
+*/
+
 class DataPanel extends React.Component{
     constructor(props){
         super(props);
@@ -27,6 +33,10 @@ class DataPanel extends React.Component{
         }
     }
 
+    /* Method for updating the Key Statistics data
+    /  Creates temporary variables then updates state to assure that state update
+    /  occurs in sync with the rest of the updates on the page, since React setState() is asynchronus by nature
+    */
     updateStats(){
         let tempArr = []
         let tempPrice = []
@@ -46,6 +56,10 @@ class DataPanel extends React.Component{
         this.setState({ 'vol': tempStats.vol})
         this.setState({ 'div':tempStats.div})
         this.setState({ 'per': tempStats.per})
+
+        /* YahooFinance API returns a long list of related tickers
+        /  These loops pick the top 5 to display ticker and price in Related Column
+        */
         for (let i = 0; i <5; i++){
             tempArr[i] = this.props.related[i].symbol
         }

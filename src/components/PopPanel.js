@@ -1,5 +1,10 @@
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+
+/*
+/ Component that contains data for Tech Stocks, Trending tickers, and Market conditions
+/ Author: Tony Flores: https://github.com/florestony54
+/ v3.0
+*/
 
 class PopPanel extends React.Component{
     constructor(props){
@@ -15,11 +20,16 @@ class PopPanel extends React.Component{
             trendingNames: ["", "", "", "", ""],
             trendingPrices: ["", "", "", "", ""]
         }
-        // Fetch Symbols, Prices, and Market data from server
+
+        // Method to Fetch Symbols, Prices, and Market data from server
+        // Component renders on page load, and this method is called
         this.getPrices = () => {
+            // Use localhost when testing on dev server, herokuapp in production
             // http://localhost:5000
             // https://whispering-cliffs-51262.herokuapp.com
             var url = new URL("https://whispering-cliffs-51262.herokuapp.com/pop");
+
+            // Query the server URL for data
             fetch(url).then(response =>
                 response.json()
             ).then(dat =>{
@@ -31,6 +41,7 @@ class PopPanel extends React.Component{
                 let quotes = JSON.parse(dat.tech).finance.result[0].quotes
                 let marketObj = JSON.parse(dat.market).marketSummaryAndSparkResponse.result
                 let trendingObj = JSON.parse(dat.trending).finance.result[0].quotes
+                // Get top 5 indexes from the Market response
                 for (let i = 0; i < 5; i++){
                     tempMarketNames.push(marketObj[i].shortName);
                     tempMarket.push(marketObj[i].spark.close[0]);
@@ -38,11 +49,12 @@ class PopPanel extends React.Component{
                 }
                 // Search through full list of trending tickers
                 for (let j = 0; j < 20; j++) {
-                    if (trendingObj[j].quoteType == "EQUITY") { // Only equities
+                    if (trendingObj[j].quoteType == "EQUITY") { // Only equities since crypto is incompatible with chart
                         tempTrendingNames.push(trendingObj[j].symbol)
                         tempTrending.push(trendingObj[j].regularMarketPrice)
                     }
                 }
+                // Set prices for tech ticker symbols and market index values
                 this.setState({
                     aapl: "$" + quotes.AAPL.regularMarketPrice,
                     goog: "$" + quotes.GOOG.regularMarketPrice,
@@ -57,10 +69,9 @@ class PopPanel extends React.Component{
                 })}
             ).catch((err) => {
                 console.log(err);
-                alert("Error with scraping fxn.")
+                // Heroku sleeps the server after inactivity. If server takes too long to respond this alert will show
+                alert("There was a server error. Please refresh the page and try again.")
             })
-            // Call the function every 5 sec to update prices
-            // setTimeout(this.getPrices, 5000);
         }
     }
 
@@ -68,8 +79,6 @@ class PopPanel extends React.Component{
 
     componentDidMount(){
         this.getPrices()
-
-        // event.preventDefault();
     }
 
     render(){

@@ -1,20 +1,28 @@
 import React from 'react';
 import stock from '../media/stock.jpg'
 
+/*
+/ Component containing a List Item containing a News article-- Multiple rendered on page
+/ Author: Tony Flores: https://github.com/florestony54
+/ v3.0
+*/
+
 class NewsPanelItem extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            title: 'NEWS TITLE ABOUT THIS THING YOU SEARCHED',
-            provider: 'Yahoo Finance',
-            date: '4/22/2021',
+            title: '', 
+            provider: '',
+            date: '',
             url: '',
-            img: stock,
+            img: stock, //stock img if no image is returned from API
             published: ""
         }
     }
 
     componentDidMount(){
+        // Calculate the difference in hours between when the Item renders 
+        // and when the article was published
         var now = new Date()
         var pub = new Date(this.props.date * 1000)
         var diff = Math.round((now - pub) / 3600000)
