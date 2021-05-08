@@ -121,7 +121,7 @@ class SearchForm extends React.Component{
             }).catch((err) => {
                 console.log(err);
                 this.setState({errormsg: <div class="alert alert-danger" role="alert">
-                                            There was an error with your search. Please make sure the symbol you searched is a valid ticker symbol.
+                                            Please enter a valid Ticker symbol. Note: The site is currently incompatible with Cryptocurrencies.
                                         </div>})
             })
 

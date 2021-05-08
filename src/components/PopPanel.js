@@ -18,7 +18,12 @@ class PopPanel extends React.Component{
             marketName: ["", "", "", "", ""],
             marketIdx: ["", "", "", "", ""],
             trendingNames: ["", "", "", "", ""],
-            trendingPrices: ["", "", "", "", ""]
+            trendingPrices: ["", "", "", "", ""],
+            callbacks: [(event) => this.props.callback(event, this.state.trendingNames[0]),
+                        (event) => this.props.callback(event, this.state.trendingNames[1]),
+                        (event) => this.props.callback(event, this.state.trendingNames[2]),
+                        (event) => this.props.callback(event, this.state.trendingNames[3]),
+                        (event) => this.props.callback(event, this.state.trendingNames[4])]
         }
 
         // Method to Fetch Symbols, Prices, and Market data from server
@@ -38,22 +43,37 @@ class PopPanel extends React.Component{
                 let tempMarketNames = []
                 let tempTrending = []
                 let tempTrendingNames = []
+                let tempCallbacks = [];
+
                 let quotes = JSON.parse(dat.tech).finance.result[0].quotes
                 let marketObj = JSON.parse(dat.market).marketSummaryAndSparkResponse.result
                 let trendingObj = JSON.parse(dat.trending).finance.result[0].quotes
+
                 // Get top 5 indexes from the Market response
                 for (let i = 0; i < 5; i++){
                     tempMarketNames.push(marketObj[i].shortName);
                     tempMarket.push(marketObj[i].spark.close[0]);
                     
                 }
-                // Search through full list of trending tickers
-                for (let j = 0; j < 20; j++) {
-                    if (trendingObj[j].quoteType == "EQUITY") { // Only equities since crypto is incompatible with chart
+
+                // Get the first 5 trending tickers
+                for (let j = 0; j < 5; j++) {
+                    if (trendingObj[j].quoteType != "CRYPTOCURRENCY") { // Crypto incompatible with charting
                         tempTrendingNames.push(trendingObj[j].symbol)
                         tempTrending.push(trendingObj[j].regularMarketPrice)
+                        // Function to search for this ticker 
+                        tempCallbacks[j] = (event) => this.props.callback(event, this.state.trendingNames[j]) 
+                    } else {
+                        tempTrendingNames.push(trendingObj[j].symbol + " (CRYPTO)") 
+                        tempTrending.push(trendingObj[j].regularMarketPrice)
+                        tempCallbacks[j] = [console.log("")] // Remove function to search for ticker
                     }
                 }
+
+                // Push the change to state so elements get updated
+                this.setState({callbacks: tempCallbacks});
+                
+
                 // Set prices for tech ticker symbols and market index values
                 this.setState({
                     aapl: "$" + quotes.AAPL.regularMarketPrice,
@@ -137,27 +157,27 @@ class PopPanel extends React.Component{
 
                     {/* Trending Tickers */}
                     <div id='trending' class="tab-pane fade list-group list-group-flush " role="tabpanel" aria-labelledby="trending-tab">
-                        <li class="list-group-item" onClick={(event) => this.props.callback(event, this.state.trendingNames[0])}>
+                        <li class="list-group-item" onClick={this.state.callbacks[0]}>
                             <div className='row align-items-center'>
                                 <div className='col-8' >{this.state.trendingNames[0]} <div className='pop-price'>${this.state.trendingPrices[0]}</div></div>
                             </div>
                         </li>
-                        <li class="list-group-item" onClick={(event) => this.props.callback(event, this.state.trendingNames[1])}>
+                        <li class="list-group-item" onClick={this.state.callbacks[1]}>
                             <div className='row align-items-center'>
                                 <div className='col-8'>{this.state.trendingNames[1]} <div className='pop-price'>${ this.state.trendingPrices[1] }</div></div>
                             </div>
 
-                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, this.state.trendingNames[2])}>
+                        </li><li class="list-group-item" onClick={this.state.callbacks[2]}>
                             <div className='row align-items-center'>
                                 <div className='col-8'>{this.state.trendingNames[2]} <div className='pop-price'>${this.state.trendingPrices[2]}</div></div>
                             </div>
 
-                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, this.state.trendingNames[3])}>
+                        </li><li class="list-group-item" onClick={this.state.callbacks[3]}>
                             <div className='row align-items-center'>
                                 <div className='col-8'>{this.state.trendingNames[3]} <div className='pop-price'>${this.state.trendingPrices[3]}</div></div>
                             </div>
 
-                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, this.state.trendingNames[4])}>
+                        </li><li class="list-group-item" onClick={this.state.callbacks[4]}>
                             <div className='row align-items-center'>
                                 <div className='col-8'>{this.state.trendingNames[4]} <div className='pop-price'>${this.state.trendingPrices[4]}</div></div>
                             </div>
