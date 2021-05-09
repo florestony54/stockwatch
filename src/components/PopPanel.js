@@ -32,7 +32,7 @@ class PopPanel extends React.Component{
             // Use localhost when testing on dev server, herokuapp in production
             // http://localhost:5000
             // https://whispering-cliffs-51262.herokuapp.com
-            var url = new URL("http://localhost:5000/pop");
+            var url = new URL("https://whispering-cliffs-51262.herokuapp.com/pop");
 
             // Query the server URL for data
             fetch(url).then(response =>
