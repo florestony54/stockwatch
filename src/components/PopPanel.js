@@ -32,7 +32,7 @@ class PopPanel extends React.Component{
             // Use localhost when testing on dev server, herokuapp in production
             // http://localhost:5000
             // https://whispering-cliffs-51262.herokuapp.com
-            var url = new URL("https://whispering-cliffs-51262.herokuapp.com/pop");
+            var url = new URL("http://localhost:5000/pop");
 
             // Query the server URL for data
             fetch(url).then(response =>
@@ -45,14 +45,17 @@ class PopPanel extends React.Component{
                 let tempTrendingNames = []
                 let tempCallbacks = [];
 
+                
                 let quotes = JSON.parse(dat.tech).finance.result[0].quotes
                 let marketObj = JSON.parse(dat.market).marketSummaryAndSparkResponse.result
                 let trendingObj = JSON.parse(dat.trending).finance.result[0].quotes
-
+                
                 // Get top 5 indexes from the Market response
                 for (let i = 0; i < 5; i++){
+                    if (marketObj[i].spark.close != null){
                     tempMarketNames.push(marketObj[i].shortName);
                     tempMarket.push(marketObj[i].spark.close[0]);
+                }
                     
                 }
 
@@ -71,6 +74,8 @@ class PopPanel extends React.Component{
                 }
 
                 // Push the change to state so elements get updated
+                this.setState({trendingNames: tempTrendingNames})
+                this.setState({trendingPrices: tempTrending})
                 this.setState({callbacks: tempCallbacks});
                 
 
