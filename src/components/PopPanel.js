@@ -61,13 +61,13 @@ class PopPanel extends React.Component{
 
                 // Get the first 5 trending tickers
                 for (let j = 0; j < 5; j++) {
-                    if (trendingObj[j].quoteType != "CRYPTOCURRENCY") { // Crypto incompatible with charting
+                    if (trendingObj[j].quoteType == "EQUITY") { // Only Equities tested for charting
                         tempTrendingNames.push(trendingObj[j].symbol)
                         tempTrending.push(trendingObj[j].regularMarketPrice)
-                        // Function to search for this ticker 
+                        // Function to search for this ticker for charting
                         tempCallbacks[j] = (event) => this.props.callback(event, this.state.trendingNames[j]) 
                     } else {
-                        tempTrendingNames.push(trendingObj[j].symbol + " (CRYPTO)") 
+                        tempTrendingNames.push(trendingObj[j].symbol + " (No Chart)") 
                         tempTrending.push(trendingObj[j].regularMarketPrice)
                         tempCallbacks[j] = [console.log("")] // Remove function to search for ticker
                     }
