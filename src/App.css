@@ -6,6 +6,14 @@ a{
   color: white;
 }
 
+.btn{
+  font-size: 0.75rem !important;
+}
+
+.nav-link{
+  font-size: 0.75rem !important;
+}
+
 .news-url {
   text-decoration: none !important;
   color:white !important;
