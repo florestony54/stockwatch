@@ -86,7 +86,7 @@ class SearchForm extends React.Component{
         this.setState({errormsg: null})
 
         // Server routes to query: '/', '/news', and '/summary'
-        var url = new URL("https://whispering-cliffs-51262.herokuapp.com"),
+        var url = new URL("https://whispering-cliffs-51262.herokuapp.com/"),
             params = {'ticker': sym,
                         'type': type}; // URL params to pass to server
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
