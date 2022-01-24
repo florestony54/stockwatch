@@ -1,4 +1,5 @@
 import React from 'react';
+import getPrices from '../js/getPrices';
 
 /*
 / Component that contains data for Tech Stocks, Trending tickers, and Market conditions
@@ -28,17 +29,13 @@ class PopPanel extends React.Component{
 
         // Method to Fetch Symbols, Prices, and Market data from server
         // Component renders on page load, and this method is called
-        this.getPrices = () => {
+        this.setPrices = () => {
             // Use localhost when testing on dev server, herokuapp in production
             // http://localhost:5000
             // https://whispering-cliffs-51262.herokuapp.com
-            var url = new URL("https://whispering-cliffs-51262.herokuapp.com/pop");
 
             // Query the server URL for data
-            fetch(url).then(response =>
-                response.json()
-            ).then(dat =>{
-                
+            getPrices("pop").then( (dat) => {  
                 let tempMarket = []
                 let tempMarketNames = []
                 let tempTrending = []
@@ -55,8 +52,7 @@ class PopPanel extends React.Component{
                     if (marketObj[i].spark.close != null){
                     tempMarketNames.push(marketObj[i].shortName);
                     tempMarket.push(marketObj[i].spark.close[0]);
-                }
-                    
+                    }                    
                 }
 
                 // Get the first 5 trending tickers
@@ -91,8 +87,8 @@ class PopPanel extends React.Component{
                     trendingNames: tempTrendingNames,
                     trendingPrices: tempTrending
 
-                })}
-            ).catch((err) => {
+                })
+            }).catch((err) => {
                 console.log(err);
                 // Heroku sleeps the server after inactivity. If server takes too long to respond this alert will show
                 alert("There was a server error. Please refresh the page and try again.")
@@ -100,10 +96,8 @@ class PopPanel extends React.Component{
         }
     }
 
-    
-
     componentDidMount(){
-        this.getPrices()
+        this.setPrices()
     }
 
     render(){
