@@ -1,5 +1,5 @@
 import React from 'react';
-import getPrices from '../js/getPrices';
+import getPrices from './getPrices';
 
 /*
 / Component that contains data for Tech Stocks, Trending tickers, and Market conditions

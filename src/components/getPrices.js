@@ -1,4 +1,4 @@
-import requestData from '../js/request';
+import requestData from './request';
 
 //component argument should be "pop", "sma/ema", "news", or "summary"
 var getPrices = (component) =>{
