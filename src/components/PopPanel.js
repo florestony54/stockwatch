@@ -103,23 +103,19 @@ class PopPanel extends React.Component{
     render(){
         return (
             <div id='pop-stocks' className="card nav nav-tabs" >
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    
-                    <li class="nav-item">
-                        <a class="nav-link active" id="tech-tab" data-toggle="tab" href="#tech" role="tab" aria-controls="tech" aria-selected="true">Tech</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="trending-tab" data-toggle="tab" href="#trending" role="tab" aria-controls="trending" aria-selected="false">Trending Tickers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="market-tab" data-toggle="tab" href="#market" role="tab" aria-controls="market" aria-selected="false">US Market</a>
-                    </li>
-                </ul>
+
+                <a href="#tech" data-toggle="collapse" aria-expanded="false" class="pop-collapse bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fas fa-laptop-code fa-fw mr-3"></span>
+                        <span class="menu-collapsed">Tech</span>
+                        <span class="submenu-icon ml-auto"></span>
+                    </div>
+                </a>
 
                 {/* Popular Tech Stocks */}
                 <div className='tab-content' id='myTabcontent'>
                     {/* Tech */}
-                    <div id='tech' class="tab-pane fade show active list-group list-group-flush " role="tabpanel" aria-labelledby="tech-tab">
+                    <div id='tech' class="collapse sidebar-submenu" role="tabpanel" aria-labelledby="tech-tab">
                         <li class="list-group-item"  onClick={(event) => this.props.callback(event, "GOOG")}>
                             <div className='row align-items-center'>
                                 <i class="fab fa-google col-1"></i>
@@ -154,8 +150,16 @@ class PopPanel extends React.Component{
 
                     </div>
 
+                    <a href="#trending" data-toggle="collapse" aria-expanded="false" class="pop-collapse bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fas fa-chart-line fa-fw mr-3"></span>
+                            <span class="menu-collapsed">Trending Tickers</span>
+                            <span class="submenu-icon ml-auto"></span>
+                        </div>
+                    </a>
+
                     {/* Trending Tickers */}
-                    <div id='trending' class="tab-pane fade list-group list-group-flush " role="tabpanel" aria-labelledby="trending-tab">
+                    <div id='trending' class="collapse sidebar-submenu" role="tabpanel" aria-labelledby="trending-tab">
                         <li class="list-group-item" onClick={this.state.callbacks[0]}>
                             <div className='row align-items-center'>
                                 <div className='col-8' >{this.state.trendingNames[0]} <div className='pop-price'>${this.state.trendingPrices[0]}</div></div>
@@ -185,9 +189,16 @@ class PopPanel extends React.Component{
 
                     </div>
 
+                    <a href="#market" data-toggle="collapse" aria-expanded="false" class="pop-collapse bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fas fa-coins fa-fw mr-3"></span>
+                            <span class="menu-collapsed">US Market</span>
+                            <span class="submenu-icon ml-auto"></span>
+                        </div>
+                    </a>
 
                     {/* Market */}
-                    <div id='market' class="tab-pane fade list-group list-group-flush " role="tabpanel" aria-labelledby="market-tab">
+                    <div id='market' class="collapse sidebar-menu" role="tabpanel" aria-labelledby="market-tab">
                         <li class="list-group-item">
                             <div className='row align-items-center'>
                                 <div className='col-8'>{this.state.marketName[0]}<div className='pop-price'>{this.state.marketIdx[0]}</div></div>

@@ -253,6 +253,16 @@ body {
   text-align: left;
 }
 
+.pop-collapse {
+  color: white;
+  border-bottom: #7f7f7f 1px solid !important;
+}
+
+.pop-collapse:hover, .pop-collapse:active, .pop-collapse:focus{
+  background-color: #294fa3c9 !important;
+  color: white;
+}
+
 .tab-pane>.list-group-item {
     background-color: transparent !important;
 }
@@ -269,6 +279,7 @@ body {
 #ticker-form{
   margin-bottom: 3rem;
   text-align: center;
+  margin-top: 6rem;
 }
 
 #myTab{
@@ -307,4 +318,16 @@ label{
   margin-left: 1rem;
   font-size: 1.2rem;
   vertical-align: middle;
+}
+
+.spinner-border{
+  margin-top: 10rem;
+}
+
+#modal-close{
+  color: white;
+}
+
+.modal-footer{
+  border-top: none !important;
 }

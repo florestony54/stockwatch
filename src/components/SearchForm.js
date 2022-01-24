@@ -6,7 +6,6 @@ import NewsPanelItem from './NewsPanelItem';
 import SummaryPanel from './SummaryPanel';
 import CompanyHeader from './CompanyHeader';
 import Spinner from './Spinner';
-import logo from '../media/logo1.png'
 
 /*
 / Component containing the Parent component for all other components of the app
@@ -219,9 +218,6 @@ class SearchForm extends React.Component{
         return ( 
             <div >
                 <div className='col-2' id='side-nav'>
-                    <a class="navbar-brand" href="#">
-                        <img src={logo} id="logo-img" width="100%" height="15%" alt=""/>
-                    </a>
                     <form id='ticker-form'> 
                         <div className="">
                             <div className='form-floating'>
@@ -236,10 +232,10 @@ class SearchForm extends React.Component{
                             <div id="searchHelp" className="form-text">Enter a ticker symbol to search</div>
                         </div>
                         <button onClick={this.handleDailySubmit} className="btn btn-primary" > 
-                            Get Daily Chart
+                            Daily Chart
                         </button>
                         <button onClick={this.handleIntradaySubmit} className="btn btn-success">
-                            Get Intraday Chart
+                            Intraday Chart
                         </button>
                         <PopPanel callback={this.submitFromLink}/>
                     </form>
