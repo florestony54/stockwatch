@@ -72,7 +72,6 @@ class DataPanel extends React.Component{
     }
 
     render(){
-        console.log(this.state.related)
         return (
             <div className="" id="data-card-col">
                 <div className='row data-card-container'>
