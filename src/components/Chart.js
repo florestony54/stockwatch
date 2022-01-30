@@ -43,9 +43,10 @@ class Chart extends React.Component{
         const candleSeries = this.chart.addCandlestickSeries();
         this.chart.applyOptions({
             layout: {
-                backgroundColor: '#041b4dd6',
+                backgroundColor: '#12244b',
                 textColor: 'white',
                 fontSize: 12,
+                borderRadius: "1rem"
             },
             grid: {
                 vertLines: {
@@ -161,18 +162,21 @@ class Chart extends React.Component{
             <div>
                 <div className="tradingview-widget-container" ref={this._ref}>
                 </div>
-                <button type="button" id='sma-btn' className="btn btn-primary col-3" onClick={this.getSMA} data-toggle="tooltip" data-placement="bottom" title="Display 20 day simple moving average">
-                    Add SMA20
-                </button>
-                
-                <button type="button" id='sma-btn' className="btn btn-danger col-3" onClick={this.getEMA} data-toggle="tooltip" data-placement="bottom" title="Display 20 day exponential moving average">
-                    Add EMA20
-                </button>
-                
-                <a type="button" href="https://www.investopedia.com/terms/m/movingaverage.asp" id='sma-btn' className="btn btn-warning col-3"  target="_blank" data-placement="bottom">
-                    <i class="far fa-question-circle"></i>What are SMA and EMA? 
-                </a>
+                <div className='chart-btns'>
+                    <button type="button" id='sma-btn' className="btn btn-primary col-3" onClick={this.getSMA} data-toggle="tooltip" data-placement="bottom" title="Display 20 day simple moving average">
+                        Add SMA20
+                    </button>
+                    
+                    <button type="button" id='sma-btn' className="btn btn-danger col-3" onClick={this.getEMA} data-toggle="tooltip" data-placement="bottom" title="Display 20 day exponential moving average">
+                        Add EMA20
+                    </button>
+                    
+                    <a type="button" href="https://www.investopedia.com/terms/m/movingaverage.asp" id='sma-btn' className="btn btn-warning col-3"  target="_blank" data-placement="bottom">
+                        <i class="far fa-question-circle"></i>SMA and EMA? 
+                    </a>
 
+                </div>
+                
             </div>
             )
     }

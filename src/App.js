@@ -7,7 +7,7 @@ import LoginModal from './components/LoginModal';
 function App() {
   return (
     <div className="App">
-        <Navbar />
+        {/* <Navbar /> */}
         <SearchForm />
         <LoginModal />
     </div>

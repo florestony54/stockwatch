@@ -1,5 +1,8 @@
 import React from 'react';
 import getPrices from './getPrices';
+import PopPanelListItem from './PopPanelListItem';
+import PopPanelMarketItem from './PopPanelMarketItem';
+import PopPanelTechItem from './PopPanelTechItems';
 
 /*
 / Component that contains data for Tech Stocks, Trending tickers, and Market conditions
@@ -101,9 +104,26 @@ class PopPanel extends React.Component{
     }
 
     render(){
+        var trendingItems = this.state.trendingNames.map((el, index) =>
+            <PopPanelListItem callback={this.state.callbacks[index]} 
+                              itemName={this.state.trendingNames[index]} 
+                              price={this.state.trendingPrices[index]} /> )
+
+        var techList = ["aapl", "amzn", "fb", "goog", "msft"]
+        var techItems = techList.map((item, index) => 
+        <PopPanelTechItem callback={(event) => this.props.callback(event, item)}
+                          ticker={item}
+                          price={this.state[item]} /> )
+
+        var marketItems = this.state.marketName.map((el, index) => 
+            <PopPanelMarketItem marketName={this.state.marketName[index]} 
+                              marketIndex={this.state.marketIdx[index]} /> 
+        )
+
         return (
             <div id='pop-stocks' className="card nav nav-tabs" >
 
+                {/* Popular Tech Stocks */}
                 <a href="#tech" data-toggle="collapse" aria-expanded="false" class="pop-collapse bg-dark list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fas fa-laptop-code fa-fw mr-3"></span>
@@ -111,45 +131,14 @@ class PopPanel extends React.Component{
                         <span class="submenu-icon ml-auto"></span>
                     </div>
                 </a>
-
-                {/* Popular Tech Stocks */}
                 <div className='tab-content' id='myTabcontent'>
-                    {/* Tech */}
                     <div id='tech' class="collapse sidebar-submenu" role="tabpanel" aria-labelledby="tech-tab">
-                        <li class="list-group-item"  onClick={(event) => this.props.callback(event, "GOOG")}>
-                            <div className='row align-items-center'>
-                                <i class="fab fa-google col-1"></i>
-                                <div className='col-8' >GOOG <div className='pop-price'>{this.state.goog}</div></div>
-                            </div>
-                        </li>
-                        <li class="list-group-item" onClick={(event) => this.props.callback(event, "AAPL")}>
-                            <div className='row align-items-center'>
-                                <i class="fab fa-apple col-1"></i>
-                                <div className='col-8'>AAPL <div className='pop-price'>{this.state.aapl}</div></div>
-                            </div>
-                            
-                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, "AMZN")}>
-                            <div className='row align-items-center'>
-                                <i class="fab fa-amazon col-1"></i>
-                                <div className='col-8'>AMZN <div className='pop-price'>{this.state.amzn}</div></div>
-                            </div>
-                            
-                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, "MSFT")}>
-                            <div className='row align-items-center'>
-                                <i class="fab fa-microsoft col-1"></i>
-                                <div className='col-8'>MSFT <div className='pop-price'>{this.state.msft}</div></div>
-                            </div>
-                            
-                        </li><li class="list-group-item" onClick={(event) => this.props.callback(event, "FB")}>
-                            <div className='row align-items-center'>
-                                <i class="fab fa-facebook col-1"></i>
-                                <div className='col-8'>FB <div className='pop-price'>{this.state.fb}</div></div>
-                            </div>
-                            
-                        </li>
+
+                        { techItems }
 
                     </div>
 
+                    {/* Trending Tickers */}
                     <a href="#trending" data-toggle="collapse" aria-expanded="false" class="pop-collapse bg-dark list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-chart-line fa-fw mr-3"></span>
@@ -157,38 +146,13 @@ class PopPanel extends React.Component{
                             <span class="submenu-icon ml-auto"></span>
                         </div>
                     </a>
-
-                    {/* Trending Tickers */}
                     <div id='trending' class="collapse sidebar-submenu" role="tabpanel" aria-labelledby="trending-tab">
-                        <li class="list-group-item" onClick={this.state.callbacks[0]}>
-                            <div className='row align-items-center'>
-                                <div className='col-8' >{this.state.trendingNames[0]} <div className='pop-price'>${this.state.trendingPrices[0]}</div></div>
-                            </div>
-                        </li>
-                        <li class="list-group-item" onClick={this.state.callbacks[1]}>
-                            <div className='row align-items-center'>
-                                <div className='col-8'>{this.state.trendingNames[1]} <div className='pop-price'>${ this.state.trendingPrices[1] }</div></div>
-                            </div>
-
-                        </li><li class="list-group-item" onClick={this.state.callbacks[2]}>
-                            <div className='row align-items-center'>
-                                <div className='col-8'>{this.state.trendingNames[2]} <div className='pop-price'>${this.state.trendingPrices[2]}</div></div>
-                            </div>
-
-                        </li><li class="list-group-item" onClick={this.state.callbacks[3]}>
-                            <div className='row align-items-center'>
-                                <div className='col-8'>{this.state.trendingNames[3]} <div className='pop-price'>${this.state.trendingPrices[3]}</div></div>
-                            </div>
-
-                        </li><li class="list-group-item" onClick={this.state.callbacks[4]}>
-                            <div className='row align-items-center'>
-                                <div className='col-8'>{this.state.trendingNames[4]} <div className='pop-price'>${this.state.trendingPrices[4]}</div></div>
-                            </div>
-
-                        </li>
+                        
+                        {trendingItems}
 
                     </div>
 
+                    {/* Market */}
                     <a href="#market" data-toggle="collapse" aria-expanded="false" class="pop-collapse bg-dark list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-coins fa-fw mr-3"></span>
@@ -196,36 +160,10 @@ class PopPanel extends React.Component{
                             <span class="submenu-icon ml-auto"></span>
                         </div>
                     </a>
-
-                    {/* Market */}
                     <div id='market' class="collapse sidebar-menu" role="tabpanel" aria-labelledby="market-tab">
-                        <li class="list-group-item">
-                            <div className='row align-items-center'>
-                                <div className='col-8'>{this.state.marketName[0]}<div className='pop-price'>{this.state.marketIdx[0]}</div></div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div className='row align-items-center'>
-                                <div className='col-8'>{this.state.marketName[1]}<div className='pop-price'>{this.state.marketIdx[1]}</div></div>
-                            </div>
-
-                        </li><li class="list-group-item">
-                            <div className='row align-items-center'>
-                                <div className='col-8'>{this.state.marketName[2]}<div className='pop-price'>{this.state.marketIdx[2]}</div></div>
-                            </div>
-
-                        </li><li class="list-group-item">
-                            <div className='row align-items-center'>
-                                <div className='col-8'>{this.state.marketName[3]}<div className='pop-price'>{this.state.marketIdx[3]}</div></div>
-                            </div>
-
-                        </li><li class="list-group-item">
-                            <div className='row align-items-center'>
-                                <div className='col-8'>{this.state.marketName[4]}<div className='pop-price'>{this.state.marketIdx[4]}</div></div>
-                            </div>
-
-                        </li>
-
+                        
+                        {marketItems}
+                        
                     </div>
                 </div>
             </div>

@@ -23,11 +23,25 @@ a{
  .news-list-item{
    display: inline-block;
    padding-bottom: 0rem;
-   border-bottom: #7f7f7f 1px solid !important;
- }
+   border-top: #7f7f7f 1px solid !important;
+  }
+
+  #news-title{
+    border-top: none !important;
+    font-weight: bolder;
+  }
 
  .news-list-item:hover {
     background-color: #294fa3c9 !important;
+}
+
+#news-title:hover{
+  background-color: #12244b !important;
+}
+
+#news-icon{
+  display: contents;
+  font-size: 2.5rem;
 }
 
 #tech>.list-group-item:hover{
@@ -66,6 +80,8 @@ i{
 
 #logo-img{
   object-fit: scale-down;
+  padding-top: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -100,11 +116,11 @@ i{
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-image: url("./media/bg.jpg");
-  background-attachment: fixed;
-  background-size: 100vw 100vh;
-  /* background-repeat: no-repeat; */
+  /* background-image: url("./media/bg.jpg"); */
+  /* background-attachment: fixed; */
+  /* background-size: 100vw 100vh; */
   color: white;
+  background-color: #101d39;
 }
 
 .card{
@@ -130,7 +146,8 @@ body {
 }
 
 #main-dash{
-  background-color: #041b4dc9 !important;
+  background-color: transparent !important;
+  padding-right: 5rem;
 }
 
 #news-row{
@@ -158,7 +175,12 @@ body {
 
 #news-list{
   margin-right: 1rem;
-  margin-left: 2rem;
+  margin-bottom: 2rem;
+  background-color: #12244b;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),
+              0 3px 1px -2px rgba(0,0,0,.2),
+              0 1px 5px 0 rgba(0,0,0,.12);
+  border-radius: 1rem;
 }
 
 .data-card{
@@ -167,8 +189,12 @@ body {
 }
 
 .data-card-container{
-  border: 1px solid #7f7f7f;
+  /* border: 1px solid #7f7f7f; */
   border-radius: 1rem;
+  background-color: #12244b;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),
+              0 3px 1px -2px rgba(0,0,0,.2),
+              0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 .data-title{
@@ -180,18 +206,22 @@ body {
 
 #data-card-col{
   height: fit-content;
-  padding-left: 2.5rem;
+  padding-left: 1rem;
   font-weight: bold;
 }
 
 #summary-panel{
   /* margin-top: 2rem; */
-  padding: 2rem;
+  /* padding: 2rem; */
 }
 
 #summary-panel-container{
-  border: 1px solid #7f7f7f;
+  /* border: 1px solid #7f7f7f; */
   border-radius: 1rem;
+  background-color: #12244b;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),
+              0 3px 1px -2px rgba(0,0,0,.2),
+              0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 .data-row{
@@ -216,7 +246,7 @@ body {
 
 #chart-container{
   margin-left: 1rem;
-  /* margin-right: 1rem; */
+  margin-right: 1rem;
   /* text-align: -webkit-center; */
 }
 
@@ -226,20 +256,28 @@ body {
 }
 
 #side-nav{
-  height: 100%;
-    /* width: 20rem; */
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    /* left: 0; */
-    background-color:#041b4dc9;
-    overflow-x: hidden;
+  height: 95%;
+  width: 20rem;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #12244b;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),
+              0 3px 1px -2px rgba(0,0,0,.2),
+              0 1px 5px 0 rgba(0,0,0,.12);
+  overflow-x: hidden;
+  border-radius: 2rem;
+  margin: 1rem 0 0 1rem;
 }
 
 #sma-btn{
-  margin-left: 4rem;
+  margin-left: 1rem;
   margin-top: 2rem;
   font-weight: bold;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 
+              0 3px 1px -2px rgba(0,0,0,.2), 
+              0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 .fa-question-circle{
@@ -279,7 +317,18 @@ body {
 #ticker-form{
   margin-bottom: 3rem;
   text-align: center;
-  margin-top: 6rem;
+  padding-top: 5rem;
+  border-top: #7f7f7f 1px solid !important;
+}
+
+#ticker-input-label{
+  display: inherit;
+  left: auto !important;
+}
+
+#ticker-form-floating{
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 #myTab{
@@ -301,15 +350,31 @@ label{
 }
 
 #company-name{
-  padding: 1rem;
-  padding-left: 2rem;
+  padding: 1rem 0 1rem 0;
   text-align: left;
   font-weight: bold;
   display: block;
 }
 
+#comp-name-span{
+  background-color: #12244b;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),
+              0 3px 1px -2px rgba(0,0,0,.2),
+              0 1px 5px 0 rgba(0,0,0,.12);
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  border-radius: 0.5rem;
+}
+
 .tv-lightweight-charts{
-  margin-left: 4rem;
+  margin-left: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),
+              0 3px 1px -2px rgba(0,0,0,.2),
+              0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.chart-btns{
+  margin-left: 1rem;
 }
 
 .badge{
@@ -330,4 +395,19 @@ label{
 
 .modal-footer{
   border-top: none !important;
+}
+
+#side-nav::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F5F5F5;
+}
+
+
+#side-navr::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(104, 140, 240, 0.3);
+}
+
+#side-nav::-webkit-scrollbar-thumb {
+  background-color: lightblue;
+  outline: 1px solid slategrey;
 }

@@ -37,9 +37,11 @@ class CompanyHeader extends React.Component {
     render() {
         return (
             <div className='row justify-content-end'>
-                <h1 id='company-name' className='card col-10 '>
-                    {this.state.name}
-                    <span class="badge bg-danger">{this.state.ticker}</span>
+                <h1 id='company-name' className='card col-9 '>
+                    <span id="comp-name-span">
+                        {this.state.name}
+                        <span class="badge bg-danger">{this.state.ticker}</span>
+                    </span>
                 </h1>
             </div>
         )
