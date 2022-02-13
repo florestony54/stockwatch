@@ -16,7 +16,7 @@ class PopPanelListItem extends React.Component {
 
     render() {
         return (
-            <li class="list-group-item" onClick={this.props.callback}>
+            <li class="list-group-item" id={this.props.id} onClick={this.props.callback}>
                 <div className='row align-items-center'>
                     <div className='col-8' >{this.props.itemName} <div className='pop-price'>${this.props.price}</div></div>
                 </div>

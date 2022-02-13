@@ -105,18 +105,21 @@ class PopPanel extends React.Component{
 
     render(){
         var trendingItems = this.state.trendingNames.map((el, index) =>
-            <PopPanelListItem callback={this.state.callbacks[index]} 
+            <PopPanelListItem id={"trending-item-" + index}
+                              callback={this.state.callbacks[index]} 
                               itemName={this.state.trendingNames[index]} 
                               price={this.state.trendingPrices[index]} /> )
 
         var techList = ["aapl", "amzn", "fb", "goog", "msft"]
         var techItems = techList.map((item, index) => 
-        <PopPanelTechItem callback={(event) => this.props.callback(event, item)}
+        <PopPanelTechItem id={"tech-item-" + index}
+                          callback={(event) => this.props.callback(event, item)}
                           ticker={item}
                           price={this.state[item]} /> )
 
         var marketItems = this.state.marketName.map((el, index) => 
-            <PopPanelMarketItem marketName={this.state.marketName[index]} 
+            <PopPanelMarketItem id={"market-item-" + index}
+                              marketName={this.state.marketName[index]} 
                               marketIndex={this.state.marketIdx[index]} /> 
         )
 

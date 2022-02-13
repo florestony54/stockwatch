@@ -16,7 +16,7 @@ class PopPanelMarketItem extends React.Component {
 
     render() {
         return (
-            <li class="list-group-item">
+            <li class="list-group-item" id={this.props.id}>
                 <div className='row align-items-center'>
                     <div className='col-8'>{this.props.marketName}<div className='pop-price'>{this.props.marketIndex}</div></div>
                 </div>

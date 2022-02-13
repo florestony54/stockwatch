@@ -23,7 +23,7 @@ class PopPanelTechItem extends React.Component {
             fb: "fab fa-facebook"
         }
         return (
-            <li class="list-group-item"  onClick={(event) => this.props.callback(event, this.props.ticker)}>
+            <li class="list-group-item" id={this.props.id} onClick={(event) => this.props.callback(event, this.props.ticker)}>
                 <div className='row align-items-center'>
                     <i className={icons[this.props.ticker] + " col-1" }></i>
                     <div className='col-8' >{this.props.ticker.toUpperCase()} <div className='pop-price'>{this.props.price}</div></div>
