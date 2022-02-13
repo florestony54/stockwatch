@@ -76,11 +76,7 @@ class SearchForm extends React.Component{
     / and will render a chart of type: (chartType) [daily/intra]
     */
     handleSubmit(event, sym, chartType){
-        if (this.requestLoading === true){ //prevent spamming backend with requests
-            return
-        } else {
             this.requestLoading = true
-            console.log("REQUESTING...")
             
             var type = chartType;
             // Setting the chart as 'daily' or 'intra'
@@ -107,7 +103,7 @@ class SearchForm extends React.Component{
             Object.keys(params).forEach(key => sumUrl.searchParams.append(key, params[key]));
 
             // Get Chart and Stats from server
-            this.setState({chart: <Spinner />})
+           this.setState({chart: <Spinner />});
 
             // Query the server URL for charting, stats, and related data
             fetch(url).then(response => 
@@ -127,9 +123,10 @@ class SearchForm extends React.Component{
                 this.setState({ticker: sym.toUpperCase() })
                 }).catch((err) => {
                     console.log(err);
-                    this.setState({errormsg: <div class="alert alert-danger" role="alert">
-                                                Please enter a valid Ticker symbol. Note: The site is currently incompatible with Cryptocurrencies.
-                                            </div>})
+                    this.setState({errormsg: 
+                        <div class="alert alert-danger" role="alert">
+                            Please enter a valid Ticker symbol. Note: The site is currently incompatible with Cryptocurrencies.
+                        </div>})
                 })
 
             // News
@@ -180,9 +177,7 @@ class SearchForm extends React.Component{
                     
                 event.preventDefault();
             this.setState({ dataLoaded: true })
-                }
-                this.requestLoading = false;
-    }
+        }
 
     componentDidMount(){
         
@@ -251,10 +246,10 @@ class SearchForm extends React.Component{
                             </div>
                             <div id="searchHelp" className="form-text">Enter a ticker symbol to search</div>
                         </div>
-                        <button onClick={this.handleDailySubmit} className="btn btn-primary" > 
+                        <button onClick={this.handleDailySubmit} id="btn-search-daily" className="btn btn-primary" > 
                             Daily Chart
                         </button>
-                        <button onClick={this.handleIntradaySubmit} className="btn btn-success">
+                        <button onClick={this.handleIntradaySubmit} id="btn-search-intra" className="btn btn-success">
                             Intraday Chart
                         </button>
                         <PopPanel callback={this.submitFromLink}/>
