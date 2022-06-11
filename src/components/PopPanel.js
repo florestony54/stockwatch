@@ -18,7 +18,7 @@ class PopPanel extends React.Component{
            aapl: "...",
            amzn: "...",
            msft: "...",
-           fb: "...",
+           meta: "...",
             marketName: ["", "", "", "", ""],
             marketIdx: ["", "", "", "", ""],
             trendingNames: ["", "", "", "", ""],
@@ -84,7 +84,7 @@ class PopPanel extends React.Component{
                     goog: "$" + quotes.GOOG.regularMarketPrice,
                     amzn: "$" + quotes.AMZN.regularMarketPrice,
                     msft: "$" + quotes.MSFT.regularMarketPrice,
-                    fb: "$" + quotes.FB.regularMarketPrice,
+                    meta: "$" + quotes.META.regularMarketPrice,
                     marketName: tempMarketNames,
                     marketIdx: tempMarket,
                     trendingNames: tempTrendingNames,
@@ -110,7 +110,7 @@ class PopPanel extends React.Component{
                               itemName={this.state.trendingNames[index]} 
                               price={this.state.trendingPrices[index]} /> )
 
-        var techList = ["aapl", "amzn", "fb", "goog", "msft"]
+        var techList = ["aapl", "amzn", "meta", "goog", "msft"]
         var techItems = techList.map((item, index) => 
         <PopPanelTechItem id={"tech-item-" + index}
                           callback={(event) => this.props.callback(event, item)}
